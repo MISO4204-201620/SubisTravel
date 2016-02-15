@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="SubisTravelCommonEAR">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="TauLabsEntidadesEJB-1.0.jar" deploy-path="/" handle="module:/resource/TauLabsEntidadesEJB/TauLabsEntidadesEJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="TauLabsUtils-1.0.jar" deploy-path="/lib" handle="module:/resource/TauLabsUtils/TauLabsUtils">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="TauLabsPersistence-1.0.jar" deploy-path="/" handle="module:/resource/TauLabsPersistence/TauLabsPersistence">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="SubisTravelWeb-1.0.war" deploy-path="/" handle="module:/resource/SubisTravelWeb/SubisTravelWeb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-client-1.19.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/sun/jersey/jersey-client/1.19/jersey-client-1.19.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jaxb-api-2.1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="stax-api-1.0-2.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="activation-1.1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/activation/activation/1.1/activation-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-server-1.19.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/sun/jersey/jersey-server/1.19/jersey-server-1.19.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-core-1.19.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/sun/jersey/jersey-core/1.19/jersey-core-1.19.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jsr311-api-1.1.1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-servlet-1.19.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/sun/jersey/jersey-servlet/1.19/jersey-servlet-1.19.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

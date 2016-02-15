@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="TauLabsEntidadesEJB" transaction-type="JTA">
+		<jta-data-source>jdbc/subisTravel</jta-data-source>
+		<class>co.com.tauLabs.model.Busqueda</class>
+		<class>co.com.tauLabs.model.Calificacion</class>
+		<class>co.com.tauLabs.model.Catalogo</class>
+		<class>co.com.tauLabs.model.CatalogoItem</class>
+		<class>co.com.tauLabs.model.Clasificacion</class>
+		<class>co.com.tauLabs.model.Consulta</class>
+		<class>co.com.tauLabs.model.Contenido</class>
+		<class>co.com.tauLabs.model.Entidad</class>
+		<class>co.com.tauLabs.model.Estado</class>
+		<class>co.com.tauLabs.model.Item</class>
+		<class>co.com.tauLabs.model.Mensaje</class>
+		<class>co.com.tauLabs.model.Pregunta</class>
+		<class>co.com.tauLabs.model.Rol</class>
+		<class>co.com.tauLabs.model.RolUsuario</class>
+		<class>co.com.tauLabs.model.Tipo</class>
+		<class>co.com.tauLabs.model.Transaccion</class>
+		<class>co.com.tauLabs.model.Usuario</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.query.factory_class" value="org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory" />
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
