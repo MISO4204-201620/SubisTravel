@@ -73,7 +73,7 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 			}
 			
 			HQL = HQL + joins + ands;
-			int paginaActual = filtros.getPage()!=null ? Integer.valueOf(filtros.getPage()) : 0;
+			int paginaActual = filtros.getPage()!=null ? Integer.valueOf(filtros.getPage()) : 1;
 			int inicial = 1*paginaActual;
 			int ultimo = 10*paginaActual;
 			
