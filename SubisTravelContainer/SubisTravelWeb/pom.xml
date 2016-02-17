@@ -34,7 +34,19 @@
         </dependency>
         <dependency>
             <groupId>co.com.tauLabs</groupId>
+            <artifactId>TauLabsItemsEJB</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>co.com.tauLabs</groupId>
             <artifactId>TauLabsUtils</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>co.com.tauLabs</groupId>
+            <artifactId>SubisTravelCommon</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
@@ -77,8 +89,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
