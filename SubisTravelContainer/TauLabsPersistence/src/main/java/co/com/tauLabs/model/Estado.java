@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="estado")
+@Table(name="ESTADO", schema="SubisDB")
 public class Estado implements Serializable, IEntity<Long> {
 	
 	private static final long serialVersionUID = 1L;

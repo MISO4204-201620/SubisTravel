@@ -13,9 +13,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="item")
+@Table(name="ITEM", schema="SubisDB")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Item implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -33,32 +41,57 @@ public class Item implements Serializable, IEntity<Long> {
 	@Column(name="id_clasificacion")
 	private Long idClasificacion;
 	
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_clasificacion",insertable=false,updatable=false)
 	private Clasificacion clasificacion;
 
+	@Column(name="id_entidad")
+	private Long idEntidad;
+	
+	@JsonIgnore
+	@XmlTransient
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_entidad",insertable=false,updatable=false)
+	private Entidad entidad;
+
 	@Column(name="id_tipo")
 	private Long idTipo;
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_tipo",insertable=false,updatable=false)
 	private Tipo tipo;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<Calificacion> calificaciones;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<CatalogoItem> catalogoItems;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<Consulta> consultas;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<Contenido> contenidos;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<Pregunta> preguntas;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<Transaccion> transacciones;
 
@@ -177,6 +210,20 @@ public class Item implements Serializable, IEntity<Long> {
 		this.idTipo = idTipo;
 	}
 
-	
+	public Long getIdEntidad() {
+		return idEntidad;
+	}
+
+	public void setIdEntidad(Long idEntidad) {
+		this.idEntidad = idEntidad;
+	}
+
+	public Entidad getEntidad() {
+		return entidad;
+	}
+
+	public void setEntidad(Entidad entidad) {
+		this.entidad = entidad;
+	}
 	
 }

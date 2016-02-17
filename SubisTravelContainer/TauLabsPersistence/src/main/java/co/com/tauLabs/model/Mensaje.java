@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="mensaje")
+@Table(name="MENSAJE", schema="SubisDB")
 public class Mensaje implements Serializable, IEntity<Long> {
 	
 	private static final long serialVersionUID = 1L;

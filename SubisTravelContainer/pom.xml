@@ -19,6 +19,7 @@
     <module>TauLabsReportEJB</module>
     <module>TauLabsMessagesEJB</module>
     <module>TauLabsSecurity</module>
+    <module>SubisTravelCommon</module>
   </modules>
   <build>
   	<pluginManagement>

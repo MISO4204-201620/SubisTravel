@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="catalogo_item")
+@Table(name="CATALOGO_ITEM", schema="SubisDB")
 public class CatalogoItem implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 

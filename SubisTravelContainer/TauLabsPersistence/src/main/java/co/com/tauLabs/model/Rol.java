@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="rol")
+@Table(name="ROL", schema="SubisDB")
 public class Rol implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 

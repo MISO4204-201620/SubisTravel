@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="clasificacion")
+@Table(name="CLASIFICACION", schema="SubisDB")
 public class Clasificacion implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 

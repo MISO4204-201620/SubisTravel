@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="calificacion")
+@Table(name="CALIFICACION", schema="SubisDB")
 public class Calificacion implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 

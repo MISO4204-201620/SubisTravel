@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="busqueda")
+@Table(name="BUSQUEDA", schema="SubisDB")
 public class Busqueda implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 

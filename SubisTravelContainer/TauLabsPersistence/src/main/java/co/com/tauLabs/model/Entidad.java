@@ -47,16 +47,21 @@ public class Entidad implements Serializable, IEntity<Long> {
 	@Column(name="id_tipo", nullable = false)
 	private Long idTipo;
 	
-	@XmlTransient
 	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_tipo",insertable = false, updatable = false)
 	private Tipo tipo;
 
-	@XmlTransient
 	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="entidad")
 	private List<Usuario> usuarios;
+
+	@JsonIgnore
+	@XmlTransient
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="entidad")
+	private List<Item> items;
 
 	public Entidad() {
 	}
@@ -115,6 +120,22 @@ public class Entidad implements Serializable, IEntity<Long> {
 
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public Long getIdTipo() {
+		return idTipo;
+	}
+
+	public void setIdTipo(Long idTipo) {
+		this.idTipo = idTipo;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 }

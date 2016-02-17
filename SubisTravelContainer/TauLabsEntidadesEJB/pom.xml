@@ -48,6 +48,11 @@
 			<version>1.0</version>
 		</dependency>
 		<dependency>
+			<groupId>co.com.tauLabs</groupId>
+			<artifactId>SubisTravelCommon</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.20</version>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="TauLabsEntidadesEJB" transaction-type="JTA">
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="TauLabsEntidadesEJB"
+		transaction-type="JTA">
 		<jta-data-source>jdbc/subisTravel</jta-data-source>
 		<class>co.com.tauLabs.model.Busqueda</class>
 		<class>co.com.tauLabs.model.Calificacion</class>
@@ -22,7 +25,8 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.query.factory_class" value="org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory" />
+			<property name="hibernate.query.factory_class"
+				value="org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory" />
 			<property name="hibernate.show_sql" value="true" />
 		</properties>
 	</persistence-unit>
