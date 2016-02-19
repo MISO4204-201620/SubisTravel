@@ -24,14 +24,14 @@ public class ItemServiceRSTest {
 			
 			WebResource web = client.resource("http://localhost:8182/SubisTravelWeb/services/items");
 			FiltroDTO filtros = new FiltroDTO();
-			filtros.setProviders(new ArrayList<String>());
-			filtros.getProviders().add("1");
-			filtros.getProviders().add("2");
-			filtros.setClasifications(new ArrayList<String>());
-			filtros.getClasifications().add("1");
-			filtros.getClasifications().add("2");
-			filtros.setMinValue(0.0);
-			filtros.setMaxValue(9000.0);
+//			filtros.setProviders(new ArrayList<String>());
+//			filtros.getProviders().add("1");
+//			filtros.getProviders().add("2");
+//			filtros.setClasifications(new ArrayList<String>());
+//			filtros.getClasifications().add("1");
+//			filtros.getClasifications().add("2");
+//			filtros.setMinValue(0.0);
+//			filtros.setMaxValue(12000.0);
 	
 			List<Item> entidads = web.post(new GenericType<List<Item>>() {},filtros);
 			for (Item item : entidads) {

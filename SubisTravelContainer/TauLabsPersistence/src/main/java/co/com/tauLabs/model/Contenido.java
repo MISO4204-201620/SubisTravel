@@ -11,9 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="CONTENIDO", schema="SubisDB")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Contenido implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -33,6 +41,8 @@ public class Contenido implements Serializable, IEntity<Long> {
 	@Column(name="id_catalogo")
 	private Long idCatalogo;
 	
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_catalogo",insertable=false,updatable=false)
 	private Catalogo catalogo;
@@ -40,6 +50,8 @@ public class Contenido implements Serializable, IEntity<Long> {
 	@Column(name="id_item")
 	private Long idItem;
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_item",insertable=false,updatable=false)
 	private Item item;
@@ -47,6 +59,8 @@ public class Contenido implements Serializable, IEntity<Long> {
 	@Column(name="id_tipo")
 	private Long idTipo;
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_tipo",insertable=false,updatable=false)
 	private Tipo tipo;

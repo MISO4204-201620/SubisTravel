@@ -11,6 +11,9 @@ import org.jboss.logging.Logger;
 
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FiltroDTO;
+import co.com.tauLabs.exception.PersistenceEJBException;
+import co.com.tauLabs.exception.ServiceEJBException;
+import co.com.tauLabs.exception.ValidationException;
 import co.com.tauLabs.model.Item;
 import co.com.tauLabs.service.IItemService;
 
@@ -29,14 +32,15 @@ public class ItemService implements IItemService,Serializable {
     }
 	
 	@Override
-	public List<Item> filtrados(FiltroDTO filtros) throws Exception {
+	public List<Item> filtrados(FiltroDTO filtros) throws ServiceEJBException {
 		logger.debug("CS iniciando metodo filtrados()");
 		try{
-			if(filtros==null) throw new Exception("Los filtros ingresados son nulos");
+			if(filtros==null)throw new ValidationException("El filtro ingresado es nulo");
 			return itemDao.filtrados(filtros);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
 		}catch(Exception e){
-			logger.error("CS Ha ocurrido un error consultando items por filtros, causa: "+e.getMessage());
-			throw new Exception("CS Ha ocurrido un error consultando items por filtros, causa: "+e.getMessage());
+			throw new ServiceEJBException("CS Ha ocurrido un error consultando items por filtros, causa: "+e.getMessage());
 		}
 		
 	}

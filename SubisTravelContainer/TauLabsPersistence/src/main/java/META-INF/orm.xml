@@ -3,16 +3,12 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd" >
 
-<!-- 	<named-query name="activacion.requiredForActivation"> -->
-<!-- 		<description>Obtiene el parametro que define la activación de la entidad</description> -->
-<!-- 		<query> -->
-<!-- 			<![CDATA[SELECT op.id FROM OpcionCaracteristica op -->
-<!-- 						JOIN op.valoresCaracteristicasEntidades opvc  -->
-<!-- 						JOIN opvc.tipo opvct  -->
-<!-- 						JOIN opvc.caracteristica opvcc  -->
-<!-- 						WHERE opvct.id = :idTipo  -->
-<!-- 						AND opvcc.id = :idCaracteristica]]> -->
-<!--         </query> -->
-<!-- 	</named-query> -->
+	<named-query name="contenido.byItem">
+		<description>Return a list of contents by a defined item id</description>
+		<query>
+			<![CDATA[SELECT c FROM Contenido c 
+				WHERE c.idItem = :idItem]]> 
+        </query>
+	</named-query>
 	
 </entity-mappings>

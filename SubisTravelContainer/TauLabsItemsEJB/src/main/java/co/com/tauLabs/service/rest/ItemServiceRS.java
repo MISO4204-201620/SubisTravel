@@ -30,7 +30,7 @@ public class ItemServiceRS{
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<Item> filtrados(FiltroDTO filters){
-		logger.debug("CR iniciando metodo itemsFiltrados()");
+		logger.debug("CR iniciando servicio itemsFiltrados()");
 		try {
 			return itemService.filtrados(filters);
 		} catch (Exception e) {
@@ -38,61 +38,5 @@ public class ItemServiceRS{
 			return null;
 		}
 	}
-	
-	
-//	@GET
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public List<Entidad> listar(){
-//		logger.info("listar actualizado");
-//		try {
-//			return personaService.listar();
-//		} catch (Exception e) {
-//			return null;
-//		}
-//	}
-//
-//	@POST
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	public Response agregarEntidad(Entidad entidad){
-//		try{
-//			personaService.guardar(entidad);
-//			return Response.ok().entity(entidad).build();
-//		}catch(Exception e){
-//			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-//		}
-//	}
-//	
-//	@PUT
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Path("{id}")
-//	public Response modificarPersona(@PathParam("id") int id, Entidad personaModificada){
-//		try{
-//			Entidad persona = personaService.obtenerPorId((long) id);
-//			if(persona != null){
-//				personaService.modificar(personaModificada);
-//				return Response.ok().entity(personaModificada).build();
-//			}
-//			else{
-//				return Response.status(Status.NOT_FOUND).build();
-//			}
-//			
-//		}catch(Exception e){
-//			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-//		}
-//	}
-//	
-//	@DELETE
-//	@Path("{id}")
-//	public Response eliminarPersonaPorId(@PathParam("id") int id){
-//		try{
-////			personaService.eliminar(new Entidad((long) id));
-//			return Response.ok().build();
-//		}
-//		catch(Exception e){
-//			return Response.status(404).build();
-//		}
-//	}
 	
 }

@@ -9,6 +9,8 @@ import javax.persistence.TypedQuery;
 
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FiltroDTO;
+import co.com.tauLabs.exception.PersistenceEJBException;
+import co.com.tauLabs.exception.ValidationException;
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.model.Item;
 
@@ -23,9 +25,10 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
     }
 
 	@Override
-	public List<Item> filtrados(FiltroDTO filtros) throws Exception {
+	public List<Item> filtrados(FiltroDTO filtros) throws PersistenceEJBException {
 		logger.debug("CP iniciando metodo filtrados()");
 		try{
+			if(filtros==null)throw new ValidationException("El filtro ingresado es nulo");
 			String HQL = "SELECT i FROM Item i ";
 			String ands = "";
 			String joins = "";
@@ -71,7 +74,7 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 							ands + "AND i.valor <= :maxValue ";
 				}
 			}
-			
+		
 			HQL = HQL + joins + ands;
 			int paginaActual = filtros.getPage()!=null ? Integer.valueOf(filtros.getPage()) : 1;
 			int inicial = 1*paginaActual;
@@ -97,8 +100,7 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 			
 			return namedQuery.getResultList();
 		}catch(Exception e){
-			logger.error("CP Erro consultando items por filtros, causa: "+e.getMessage());
-			throw new Exception("CP Erro consultando items por filtros, causa: "+e.getMessage());
+			throw new PersistenceEJBException("CP Erro consultando items por filtros, causa: "+e.getMessage());
 		}
 	}
     
