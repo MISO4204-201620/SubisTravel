@@ -10,5 +10,11 @@
 				WHERE c.idItem = :idItem]]> 
         </query>
 	</named-query>
-	
+	<named-query name="entidades.byTipo">
+		<description>Return a list of entities by a type id</description>
+		<query>
+			<![CDATA[SELECT e FROM Entidad e 
+				WHERE e.idTipo = :idTipo]]> 
+        </query>
+	</named-query>
 </entity-mappings>

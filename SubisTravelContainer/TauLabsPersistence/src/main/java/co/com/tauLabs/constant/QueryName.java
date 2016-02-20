@@ -11,7 +11,8 @@ package co.com.tauLabs.constant;
  */
 public enum QueryName {
 
-	CONTENIDO_BY_ITEM("contenido.byItem");
+	CONTENIDO_BY_ITEM("contenido.byItem"),
+	ENTIDADES_BY_TIPO("entidades.byTipo");
 	
 	
 	private String value;

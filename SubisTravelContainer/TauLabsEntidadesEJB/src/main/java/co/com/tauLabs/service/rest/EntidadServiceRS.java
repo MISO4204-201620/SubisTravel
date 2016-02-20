@@ -27,7 +27,7 @@ public class EntidadServiceRS{
 
 	final static Logger logger = Logger.getLogger(EntidadServiceRS.class);
 	
-	@EJB private IEntidadService personaService;
+	@EJB private IEntidadService entidadService;
 	
 	public EntidadServiceRS() {}
 	
@@ -37,7 +37,7 @@ public class EntidadServiceRS{
 	public Entidad encontrarPorId(@PathParam("id") int id){
 		logger.info("encontrarPorId");
 		try {
-			return personaService.obtenerPorId((long) id);
+			return entidadService.obtenerPorId((long) id);
 		} catch (Exception e) {
 			return null;
 		}
@@ -48,7 +48,7 @@ public class EntidadServiceRS{
 	public List<Entidad> listar(){
 		logger.info("listar actualizado");
 		try {
-			return personaService.listar();
+			return entidadService.listar();
 		} catch (Exception e) {
 			return null;
 		}
@@ -59,7 +59,7 @@ public class EntidadServiceRS{
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response agregarEntidad(Entidad entidad){
 		try{
-			personaService.guardar(entidad);
+			entidadService.guardar(entidad);
 			return Response.ok().entity(entidad).build();
 		}catch(Exception e){
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
@@ -72,9 +72,9 @@ public class EntidadServiceRS{
 	@Path("{id}")
 	public Response modificarPersona(@PathParam("id") int id, Entidad personaModificada){
 		try{
-			Entidad persona = personaService.obtenerPorId((long) id);
+			Entidad persona = entidadService.obtenerPorId((long) id);
 			if(persona != null){
-				personaService.modificar(personaModificada);
+				entidadService.modificar(personaModificada);
 				return Response.ok().entity(personaModificada).build();
 			}
 			else{
@@ -95,6 +95,18 @@ public class EntidadServiceRS{
 		}
 		catch(Exception e){
 			return Response.status(404).build();
+		}
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("porTipo/{idTipo}")
+	public List<Entidad> obtenerEntidadesPorTipo(@PathParam("idTipo") int idTipo){
+		logger.info("obtenerEntidadesPorTipo Services REST");
+		try {
+			return entidadService.obtenerEntidadesPorTipo((long) idTipo);
+		} catch (Exception e) {
+			return null;
 		}
 	}
 	
