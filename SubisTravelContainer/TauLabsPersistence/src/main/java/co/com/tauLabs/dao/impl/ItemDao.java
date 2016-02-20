@@ -8,7 +8,7 @@ import javax.inject.Named;
 import javax.persistence.TypedQuery;
 
 import co.com.tauLabs.dao.IItemDao;
-import co.com.tauLabs.dto.FiltroDTO;
+import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ValidationException;
 import co.com.tauLabs.model.Entidad;
@@ -25,7 +25,7 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
     }
 
 	@Override
-	public List<Item> filtrados(FiltroDTO filtros) throws PersistenceEJBException {
+	public List<Item> filtrados(FilterDTO filtros) throws PersistenceEJBException {
 		logger.debug("CP iniciando metodo filtrados()");
 		try{
 			if(filtros==null)throw new ValidationException("El filtro ingresado es nulo");

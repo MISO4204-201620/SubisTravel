@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.logging.Logger;
 
-import co.com.tauLabs.dto.FiltroDTO;
+import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.model.Item;
 import co.com.tauLabs.service.IItemService;
 
@@ -29,7 +29,7 @@ public class ItemServiceRS{
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Item> filtrados(FiltroDTO filters){
+	public List<Item> filtrados(FilterDTO filters){
 		logger.debug("CR iniciando servicio itemsFiltrados()");
 		try {
 			return itemService.filtrados(filters);

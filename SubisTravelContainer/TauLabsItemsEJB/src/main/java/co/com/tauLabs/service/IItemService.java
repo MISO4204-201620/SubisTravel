@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import co.com.tauLabs.dto.FiltroDTO;
+import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.exception.ServiceEJBException;
 import co.com.tauLabs.model.Item;
 
@@ -15,6 +15,6 @@ public interface IItemService {
 	 * @author ServioAndres
 	 * @return Lista de items filtrados por los criterior ingresados en filtros
 	 */
-	List<Item> filtrados(FiltroDTO filtros) throws ServiceEJBException;
+	List<Item> filtrados(FilterDTO filtros) throws ServiceEJBException;
 
 }

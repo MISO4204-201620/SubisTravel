@@ -3,7 +3,7 @@ package co.com.tauLabs.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class FiltroDTO implements	Serializable {
+public class FilterDTO implements	Serializable {
 
 	private static final long serialVersionUID = -3192090127016165648L;
 	
