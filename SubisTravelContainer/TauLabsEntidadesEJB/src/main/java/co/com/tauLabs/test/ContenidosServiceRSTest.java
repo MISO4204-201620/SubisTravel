@@ -12,7 +12,8 @@ public class ContenidosServiceRSTest {
 
 	public static void main(String[] args) {
 		try{	
-		System.out.println("Iniciando test de servicios RS de Entidades");
+		System.out
+		.println("Iniciando test de servicios RS de Entidades");
 					
 			Client client = Client.create();
 				

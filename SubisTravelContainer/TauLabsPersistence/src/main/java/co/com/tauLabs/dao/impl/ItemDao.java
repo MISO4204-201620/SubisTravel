@@ -5,8 +5,12 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import co.com.tauLabs.constant.QueryName;
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.exception.PersistenceEJBException;
@@ -23,7 +27,9 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
     public ItemDao() {
 
     }
-
+    @PersistenceContext(unitName = "TauLabsEntidadesEJB")
+	EntityManager em;
+    
 	@Override
 	public List<Item> filtrados(FilterDTO filtros) throws PersistenceEJBException {
 		logger.debug("CP iniciando metodo filtrados()");
@@ -104,6 +110,18 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 		}
 	}
     
-
+	@Override
+	public Item obtenerItemPorId(Long id) throws PersistenceEJBException {
+		logger.debug("CP iniciando metodo obtenerEntidadesPorTipo()");
+		try{
+	    	
+    		if(id==null)throw new Exception("El identificador es nulo");
+    		return (Item) em.find(Item.class,id);
+    	}catch(Exception e){
+    		logger.error("CP Erro consultando Entidades por tipo, causa: "+e.getMessage());
+    		throw new PersistenceException("CP Error ejecutnao el metodo obtenerEntidadesPorTipo,causa: "+e.getMessage());
+    	}
+		
+	}
     
 }

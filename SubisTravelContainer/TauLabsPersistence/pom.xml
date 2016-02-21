@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<glassfish.embedded-static-shell.jar>
-			B:\Subis\Servidores\glassfish-4.1\glassfish\lib\embedded\glassfish-embedded-static-shell.jar
+			C:\glassfish-4.1\glassfish-4.1\glassfish\lib\embedded\glassfish-embedded-static-shell.jar
 		</glassfish.embedded-static-shell.jar>
 	</properties>
 	<dependencies>

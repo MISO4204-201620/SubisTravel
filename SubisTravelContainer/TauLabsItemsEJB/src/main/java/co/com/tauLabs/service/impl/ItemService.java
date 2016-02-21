@@ -44,5 +44,18 @@ public class ItemService implements IItemService,Serializable {
 		}
 		
 	}
+
+	@Override
+	public Item obtenerItemPorId(Long id) throws ServiceEJBException {
+		logger.debug("CS iniciando metodo obtenerItemPorId()");
+		try{
+			if(id==null) throw new Exception("El ID ingresado es nulo");
+			return itemDao.obtenerItemPorId(id);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error consultando Item por id, causa: "+e.getMessage());
+		}
+	}
 	
 }

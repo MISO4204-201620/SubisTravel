@@ -17,4 +17,5 @@ public interface IItemService {
 	 */
 	List<Item> filtrados(FilterDTO filtros) throws ServiceEJBException;
 
+	Item obtenerItemPorId(Long id) throws ServiceEJBException;
 }
