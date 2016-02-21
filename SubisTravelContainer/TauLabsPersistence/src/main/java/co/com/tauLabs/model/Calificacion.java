@@ -14,9 +14,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="CALIFICACION", schema="SubisDB")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Calificacion implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -33,13 +41,17 @@ public class Calificacion implements Serializable, IEntity<Long> {
 	@Column(name="id_catalogo")
 	private Long idCatalogo;
 	
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_catalogo",insertable = false,updatable=false)
 	private Catalogo catalogo;
 	
 	@Column(name="id_item")
 	private Long idItem;
-
+	
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_item",insertable = false,updatable=false)
 	private Item item;
@@ -47,6 +59,8 @@ public class Calificacion implements Serializable, IEntity<Long> {
 	@Column(name="id_usuario")
 	private Long idUsuario;
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario",insertable = false,updatable=false)
 	private Usuario usuario;

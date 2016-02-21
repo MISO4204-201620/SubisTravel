@@ -6,7 +6,8 @@ import java.util.List;
 public class FilterDTO implements	Serializable {
 
 	private static final long serialVersionUID = -3192090127016165648L;
-	
+
+	private String name;
 	private String page;
 	private Double minValue;
 	private Double maxValue;
@@ -43,6 +44,12 @@ public class FilterDTO implements	Serializable {
 	}
 	public void setMaxValue(Double maxValue) {
 		this.maxValue = maxValue;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

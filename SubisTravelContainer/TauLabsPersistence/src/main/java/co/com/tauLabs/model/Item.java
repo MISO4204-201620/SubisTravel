@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name="ITEM", schema="SubisDB")
@@ -32,11 +34,15 @@ public class Item implements Serializable, IEntity<Long> {
 	@Column(name="id_item")
 	private Long id;
 
+	private String nombre;
+
 	private String descripcion;
 
 	private String estado;
 
 	private Double valor;
+	
+	private Float promedioCalificacion;
 
 	@Column(name="id_clasificacion")
 	private Long idClasificacion;
@@ -65,8 +71,7 @@ public class Item implements Serializable, IEntity<Long> {
 	@JoinColumn(name="id_tipo",insertable=false,updatable=false)
 	private Tipo tipo;
 
-	@JsonIgnore
-	@XmlTransient
+	@JsonInclude(Include.NON_NULL) 
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<Calificacion> calificaciones;
 
@@ -77,7 +82,7 @@ public class Item implements Serializable, IEntity<Long> {
 
 	@JsonIgnore
 	@XmlTransient
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")	
 	private List<Consulta> consultas;
 
 	@JsonIgnore
@@ -104,6 +109,14 @@ public class Item implements Serializable, IEntity<Long> {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getDescripcion() {
@@ -224,6 +237,14 @@ public class Item implements Serializable, IEntity<Long> {
 
 	public void setEntidad(Entidad entidad) {
 		this.entidad = entidad;
+	}
+
+	public Float getPromedioCalificacion() {
+		return promedioCalificacion;
+	}
+
+	public void setPromedioCalificacion(Float promedioCalificacion) {
+		this.promedioCalificacion = promedioCalificacion;
 	}
 	
 }

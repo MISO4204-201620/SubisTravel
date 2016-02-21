@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import co.com.tauLabs.constant.QueryName;
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.exception.PersistenceEJBException;
@@ -38,46 +37,48 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 			String HQL = "SELECT i FROM Item i ";
 			String ands = "";
 			String joins = "";
+
+			if(filtros.getName()!=null && !filtros.getName().trim().equals("")){
+				ands = ands+"WHERE ";
+				ands = ands + "i.nombre like (:nombre) ";
+			}
 			
 			if(filtros.getProviders()!=null){
-				ands = ands+"WHERE ";
-				joins = 
-						"JOIN i.entidad e ";
-				ands = 
-						ands + "e.id IN :providers ";
+				if(ands.equals("")){
+					ands = ands+"WHERE ";
+					ands = ands + "e.id IN :providers ";
+				}else{
+					ands = ands + "AND e.id IN :providers ";
+				}
+				joins = "JOIN i.entidad e ";
 			}
 			
 			if(filtros.getClasifications()!=null){
 				if(ands.equals("")){
 					ands = ands+"WHERE ";
+					ands = ands + "c.id IN :clasifications ";
 				}else{
-					ands = 
-							ands + "AND c.id IN :clasifications ";
+					ands = ands + "AND c.id IN :clasifications ";
 				}
-				joins = 
-						joins + "JOIN i.clasificacion c ";
+				joins = joins + "JOIN i.clasificacion c ";
 				
 			}
 
 			if(filtros.getMinValue()!=null){
 				if(ands.equals("")){
 					ands = ands+"WHERE ";
-					ands = 
-							ands + "i.valor >= :minValue ";
+					ands = ands + "i.valor >= :minValue ";
 				}else{
-					ands = 
-							ands + "AND i.valor >= :minValue ";
+					ands = ands + "AND i.valor >= :minValue ";
 				}
 				
 			}
 			if(filtros.getMaxValue()!=null){
 				if(ands.equals("")){
 					ands = ands+"WHERE ";
-					ands = 
-							ands + "i.valor <= :maxValue ";
+					ands = ands + "i.valor <= :maxValue ";
 				}else{
-					ands = 
-							ands + "AND i.valor <= :maxValue ";
+					ands = ands + "AND i.valor <= :maxValue ";
 				}
 			}
 		
@@ -90,6 +91,10 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 			namedQuery.setFirstResult(inicial);
 			namedQuery.setMaxResults(ultimo);
 
+			if(filtros.getName()!=null && !filtros.getName().trim().equals("")){
+				namedQuery.setParameter("nombre","%"+filtros.getName()+"%");
+			}
+				
 			if(filtros.getProviders()!=null){
 				namedQuery.setParameter("providers",filtros.getProviders());
 			}
@@ -106,7 +111,7 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 			
 			return namedQuery.getResultList();
 		}catch(Exception e){
-			throw new PersistenceEJBException("CP Erro consultando items por filtros, causa: "+e.getMessage());
+			throw new PersistenceEJBException("CP Error consultando items por filtros, causa: "+e.getMessage());
 		}
 	}
     
