@@ -33,7 +33,7 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 	}
 
 	@Override
-	public List<Entidad> obtenerEntidadesPorTipo(Long idTipo) throws Exception {
+	public List<Entidad> obtenerEntidadesPorTipo(Long idTipo) throws ServiceEJBException {
 		logger.debug("CS iniciando metodo obtenerEntidadesPorTipo()");
 		try{
 			if(idTipo==null) throw new Exception("Los filtros ingresados son nulos");
