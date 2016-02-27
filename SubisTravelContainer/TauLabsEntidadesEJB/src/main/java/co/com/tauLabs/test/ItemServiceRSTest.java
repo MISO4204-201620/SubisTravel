@@ -22,7 +22,7 @@ public class ItemServiceRSTest {
 			 * Recuperar una entidad
 			 *********************/
 			
-			WebResource web = client.resource("http://localhost:8182/SubisTravelWeb/services/items");
+			WebResource web = client.resource("http://ec2-54-191-125-225.us-west-2.compute.amazonaws.com:8080/SubisTravelWeb/services/items");
 			FilterDTO filtros = new FilterDTO();
 			filtros.setProviders(new ArrayList<String>());
 			filtros.getProviders().add("1");

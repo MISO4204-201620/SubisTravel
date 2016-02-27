@@ -1,6 +1,7 @@
 package co.com.tauLabs.dao.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -12,6 +13,7 @@ import javax.persistence.TypedQuery;
 
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FilterDTO;
+import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ValidationException;
 import co.com.tauLabs.model.Entidad;
@@ -30,13 +32,15 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 	EntityManager em;
     
 	@Override
-	public List<Item> filtrados(FilterDTO filtros) throws PersistenceEJBException {
+	public PaginateDTO filtrados(FilterDTO filtros) throws PersistenceEJBException {
 		logger.debug("CP iniciando metodo filtrados()");
 		try{
 			if(filtros==null)throw new ValidationException("El filtro ingresado es nulo");
 			String HQL = "SELECT i FROM Item i ";
+			String HQLCount = "SELECT COUNT(i.id) FROM Item i ";
 			String ands = "";
 			String joins = "";
+			PaginateDTO paginate = new PaginateDTO();
 
 			if(filtros.getName()!=null && !filtros.getName().trim().equals("")){
 				ands = ands+"WHERE ";
@@ -81,35 +85,61 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
 					ands = ands + "AND i.valor <= :maxValue ";
 				}
 			}
-		
+
 			HQL = HQL + joins + ands;
+			HQLCount = HQLCount + joins + ands;
 			int paginaActual = filtros.getPage()!=null ? Integer.valueOf(filtros.getPage()) : 1;
-			int inicial = 1*paginaActual;
-			int ultimo = 10*paginaActual;
-			
+			int	inicial = (10*paginaActual)-10;
+
 			TypedQuery<Item> namedQuery = this.em.createQuery(HQL, Item.class);
-			namedQuery.setFirstResult(inicial);
-			namedQuery.setMaxResults(ultimo);
+			TypedQuery<Long> namedQueryCount = this.em.createQuery(HQLCount, Long.class);
 
 			if(filtros.getName()!=null && !filtros.getName().trim().equals("")){
 				namedQuery.setParameter("nombre","%"+filtros.getName()+"%");
+				namedQueryCount.setParameter("nombre","%"+filtros.getName()+"%");
 			}
 				
 			if(filtros.getProviders()!=null){
 				namedQuery.setParameter("providers",filtros.getProviders());
+				namedQueryCount.setParameter("providers",filtros.getProviders());
 			}
+			
 			if(filtros.getClasifications()!=null){
 				namedQuery.setParameter("clasifications",filtros.getClasifications());
+				namedQueryCount.setParameter("clasifications",filtros.getClasifications());
 			}
+			
 			if(filtros.getMinValue()!=null){
 				namedQuery.setParameter("minValue",filtros.getMinValue());
+				namedQueryCount.setParameter("minValue",filtros.getMinValue());
 
 			}
 			if(filtros.getMaxValue()!=null){
 				namedQuery.setParameter("maxValue",filtros.getMaxValue());
+				namedQueryCount.setParameter("maxValue",filtros.getMaxValue());
 			}
 			
-			return namedQuery.getResultList();
+			//Cantidad de registros
+			Long cantidadRegistros = namedQueryCount.getSingleResult();
+			paginate.setElements(cantidadRegistros);
+			
+			//Cantidad de paginas
+			Long paginas = (long)Math.ceil(cantidadRegistros/10D);
+			paginate.setPages(paginas);		
+			
+			namedQuery.setFirstResult(inicial);
+			namedQuery.setMaxResults(10);
+			
+			List<Item> items = namedQuery.getResultList();
+			paginate.setLstElements(new ArrayList<Object>());
+			
+			if(items.size()>0){
+				for (Item item : items) {
+					paginate.getLstElements().add(item);
+				}
+			}
+			
+			return paginate;
 		}catch(Exception e){
 			throw new PersistenceEJBException("CP Error consultando items por filtros, causa: "+e.getMessage());
 		}

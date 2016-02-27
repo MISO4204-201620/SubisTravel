@@ -1,7 +1,6 @@
 package co.com.tauLabs.service.impl;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -11,6 +10,7 @@ import org.jboss.logging.Logger;
 
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FilterDTO;
+import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ServiceEJBException;
 import co.com.tauLabs.exception.ValidationException;
@@ -32,7 +32,7 @@ public class ItemService implements IItemService,Serializable {
     }
 	
 	@Override
-	public List<Item> filtrados(FilterDTO filtros) throws ServiceEJBException {
+	public PaginateDTO filtrados(FilterDTO filtros) throws ServiceEJBException {
 		logger.debug("CS iniciando metodo filtrados()");
 		try{
 			if(filtros==null)throw new ValidationException("El filtro ingresado es nulo");

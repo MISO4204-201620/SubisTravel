@@ -38,6 +38,8 @@ public class Item implements Serializable, IEntity<Long> {
 
 	private String descripcion;
 
+	private String imagen;
+
 	private String estado;
 
 	private Double valor;
@@ -245,6 +247,14 @@ public class Item implements Serializable, IEntity<Long> {
 
 	public void setPromedioCalificacion(Float promedioCalificacion) {
 		this.promedioCalificacion = promedioCalificacion;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 	
 }
