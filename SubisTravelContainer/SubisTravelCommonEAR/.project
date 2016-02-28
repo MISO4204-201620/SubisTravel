@@ -3,6 +3,7 @@
 	<name>SubisTravelCommonEAR</name>
 	<comment></comment>
 	<projects>
+		<project>TauLabsQualificationEJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

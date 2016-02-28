@@ -21,6 +21,7 @@
 		<class>co.com.tauLabs.model.Tipo</class>
 		<class>co.com.tauLabs.model.Transaccion</class>
 		<class>co.com.tauLabs.model.Usuario</class>
+		<class>co.com.tauLabs.model.Direccion</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

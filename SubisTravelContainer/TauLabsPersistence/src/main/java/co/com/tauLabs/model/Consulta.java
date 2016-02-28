@@ -28,7 +28,7 @@ public class Consulta implements Serializable, IEntity<Long> {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 	
-	@Column(name="idCatalogo")
+	@Column(name="id_catalogo")
 	private Long idCatalogo;
 
 	@ManyToOne(fetch=FetchType.LAZY)

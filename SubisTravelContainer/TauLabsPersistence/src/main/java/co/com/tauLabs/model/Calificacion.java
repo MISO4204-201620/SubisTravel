@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +38,8 @@ public class Calificacion implements Serializable, IEntity<Long> {
 	private Date fecha;
 
 	private Byte valor;
+	
+	private String comentario;
 	
 	@Column(name="id_catalogo")
 	private Long idCatalogo;
@@ -138,6 +141,19 @@ public class Calificacion implements Serializable, IEntity<Long> {
 
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+	
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+
+	@PrePersist
+	void preInsert() {
+		setFecha(new Date());
 	}
 	
 }
