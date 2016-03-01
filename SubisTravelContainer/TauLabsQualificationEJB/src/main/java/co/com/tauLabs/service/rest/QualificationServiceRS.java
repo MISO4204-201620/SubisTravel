@@ -1,8 +1,11 @@
 package co.com.tauLabs.service.rest;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -54,6 +57,34 @@ public class QualificationServiceRS {
 			return Response.ok().entity(calificacion).build();
 		}catch(Exception e){
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@Path("/items/{idItem}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Calificacion> obtenerCalificacionesPorItem(@PathParam("idItem")Long idItem){
+		logger.debug("CR iniciando servicio obtenerCalificacionesPorItem()");
+		try{
+			return qualificationService.obtenerCalificacionesPorItem(idItem);
+		}catch(Exception e){
+			logger.error("CR Error consultando calificaciones por item, causa: "+e.getMessage());
+			return null;
+		}
+	}
+	
+	@Path("/catalogos/{idCatalogo}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Calificacion> obtenerCalificacionesPorCatalogo(@PathParam("idCatalogo")Long idCatalogo){
+		logger.debug("CR iniciando servicio obtenerCalificacionesPorCatalogo()");
+		try{
+			return qualificationService.obtenerCalificacionesPorCatalogo(idCatalogo);
+		}catch(Exception e){
+			logger.error("CR Error consultando calificaciones por catalogo, causa: "+e.getMessage());
+			return null;
 		}
 	}
 }

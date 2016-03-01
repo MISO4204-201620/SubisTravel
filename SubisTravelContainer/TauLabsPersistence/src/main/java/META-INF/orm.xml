@@ -17,4 +17,30 @@
 				WHERE e.idTipo = :idTipo]]> 
         </query>
 	</named-query>
+	<named-query name="calificaciones.byItem">
+		<description>Return a list of qualifications by a Item id</description>
+		<query>
+			<![CDATA[SELECT c FROM Calificacion c 
+				WHERE c.idItem = :idItem]]> 
+        </query>
+	</named-query>
+	<named-query name="calificaciones.byCatalogo">
+		<description>Return a list of qualifications by a Catalog id</description>
+		<query>
+			<![CDATA[SELECT c FROM Calificacion c 
+				WHERE c.idCatalogo = :idCatalogo]]> 
+        </query>
+	</named-query>
+	<named-query name="catalogos.all">
+		<description>Return a list of catalogs </description>
+		<query>
+			<![CDATA[SELECT c FROM Catalogo c ]]> 
+        </query>
+	</named-query>
+	<named-query name="clasificaciones.all">
+		<description>Return a list of clasifications </description>
+		<query>
+			<![CDATA[SELECT c FROM Clasificacion c]]> 
+        </query>
+	</named-query>
 </entity-mappings>

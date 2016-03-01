@@ -13,9 +13,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="CATALOGO", schema="SubisDB")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Catalogo implements Serializable, IEntity<Long> {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,22 +44,34 @@ public class Catalogo implements Serializable, IEntity<Long> {
 	@Column(name="id_usuario")
 	private Long idUsuario;
 	
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario",insertable = false, updatable=false)
 	private Usuario usuario;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="catalogo")
 	private List<Calificacion> calificaciones;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="catalogo")
 	private List<CatalogoItem> catalogoItems;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="catalogo")
 	private List<Consulta> consultas;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="catalogo")
 	private List<Contenido> contenidos;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="catalogo")
 	private List<Pregunta> preguntas;
 

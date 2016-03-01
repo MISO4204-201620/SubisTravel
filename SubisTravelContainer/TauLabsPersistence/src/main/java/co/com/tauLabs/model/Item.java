@@ -73,7 +73,9 @@ public class Item implements Serializable, IEntity<Long> {
 	@JoinColumn(name="id_tipo",insertable=false,updatable=false)
 	private Tipo tipo;
 
-	@JsonInclude(Include.NON_NULL) 
+	
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<Calificacion> calificaciones;
 
