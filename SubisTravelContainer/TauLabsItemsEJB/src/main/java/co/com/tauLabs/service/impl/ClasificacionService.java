@@ -10,14 +10,10 @@ import javax.inject.Named;
 import org.jboss.logging.Logger;
 
 import co.com.tauLabs.dao.IClasificacionDao;
-import co.com.tauLabs.dao.IContenidoDao;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ServiceEJBException;
-import co.com.tauLabs.exception.ValidationException;
 import co.com.tauLabs.model.Clasificacion;
-import co.com.tauLabs.model.Contenido;
 import co.com.tauLabs.service.IClasificacionService;
-import co.com.tauLabs.service.IContenidoService;
 
 @Stateless
 @Named

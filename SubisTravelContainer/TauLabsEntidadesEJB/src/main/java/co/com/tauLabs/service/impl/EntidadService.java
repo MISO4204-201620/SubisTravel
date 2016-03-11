@@ -1,7 +1,5 @@
 package co.com.tauLabs.service.impl;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -9,8 +7,11 @@ import javax.inject.Named;
 
 import co.com.tauLabs.dao.IEntidadDao;
 import co.com.tauLabs.dao.IGenericDao;
+import co.com.tauLabs.dto.FilterDTO;
+import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ServiceEJBException;
+import co.com.tauLabs.exception.ValidationException;
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.service.IEntidadService;
 
@@ -31,18 +32,19 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 	public void entidadService(){
 		super.genericDao = (IGenericDao) entidadDao;
 	}
-
+	
 	@Override
-	public List<Entidad> obtenerEntidadesPorTipo(Long idTipo) throws ServiceEJBException {
-		logger.debug("CS iniciando metodo obtenerEntidadesPorTipo()");
+	public PaginateDTO filtrados(FilterDTO filtros) throws ServiceEJBException {
+		logger.debug("CS iniciando metodo filtrados()");
 		try{
-			if(idTipo==null) throw new Exception("Los filtros ingresados son nulos");
-			return entidadDao.obtenerEntidadesPorTipo(idTipo);
+			if(filtros==null)throw new ValidationException("El filtro ingresado es nulo");
+			return entidadDao.filtrados(filtros);
 		}catch(PersistenceEJBException e){
 			throw new ServiceEJBException(e.getMessage());
 		}catch(Exception e){
-			throw new ServiceEJBException("CS Ha ocurrido un error consultando entidades por tipo, causa: "+e.getMessage());
+			throw new ServiceEJBException("CS Ha ocurrido un error consultando entidades por filtros, causa: "+e.getMessage());
 		}
+		
 	}
 	
 }

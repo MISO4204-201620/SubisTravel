@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response.Status;
 
 import org.jboss.logging.Logger;
 
+import co.com.tauLabs.dto.FilterDTO;
+import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.service.IEntidadService;
 
@@ -97,15 +99,22 @@ public class EntidadServiceRS{
 			return Response.status(404).build();
 		}
 	}
+
+	/**
+	 * @author ServioAndres
+	 * @return Lista de entiades con filtros para paginación
+	 */
 	
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("porTipo/{idTipo}")
-	public List<Entidad> obtenerEntidadesPorTipo(@PathParam("idTipo") int idTipo){
-		logger.info("obtenerEntidadesPorTipo Services REST");
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("listar")
+	public PaginateDTO filtrados(FilterDTO filters){
+		logger.debug("CR iniciando servicio itemsFiltrados()");
 		try {
-			return entidadService.obtenerEntidadesPorTipo((long) idTipo);
+			return entidadService.filtrados(filters);
 		} catch (Exception e) {
+			logger.error("CR Error consultando items por filtro, causa: "+e.getMessage());
 			return null;
 		}
 	}

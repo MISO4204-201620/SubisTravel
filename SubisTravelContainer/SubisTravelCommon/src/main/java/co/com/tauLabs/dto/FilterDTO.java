@@ -12,6 +12,7 @@ public class FilterDTO implements	Serializable {
 	private Double minValue;
 	private Double maxValue;
 	private Long pages;
+	private Long type;
 	
 	private List<String> providers;
 	private List<String> clasifications;
@@ -57,6 +58,12 @@ public class FilterDTO implements	Serializable {
 	}
 	public void setPages(Long pages) {
 		this.pages = pages;
+	}
+	public Long getType() {
+		return type;
+	}
+	public void setType(Long type) {
+		this.type = type;
 	}
 	
 }

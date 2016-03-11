@@ -50,6 +50,13 @@
 		</dependency>
 		<dependency>
 			<groupId>co.com.tauLabs</groupId>
+			<artifactId>TauLabsMessagesEJB</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>co.com.tauLabs</groupId>
 			<artifactId>TauLabsUtils</artifactId>
 			<version>1.0</version>
 			<scope>provided</scope>
@@ -121,6 +128,10 @@
 						<ejbModule>
 							<groupId>co.com.tauLabs</groupId>
 							<artifactId>TauLabsEntidadesEJB</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>co.com.tauLabs</groupId>
+							<artifactId>TauLabsMessagesEJB</artifactId>
 						</ejbModule>
 						<ejbModule>
 							<groupId>co.com.tauLabs</groupId>
