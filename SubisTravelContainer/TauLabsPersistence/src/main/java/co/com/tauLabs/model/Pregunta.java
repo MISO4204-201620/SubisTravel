@@ -15,6 +15,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Entity
 @Table(name="PREGUNTA", schema="SubisDB")
 public class Pregunta implements Serializable, IEntity<Long> {
@@ -47,6 +51,8 @@ public class Pregunta implements Serializable, IEntity<Long> {
 	@Column(name="id_usuario")
 	private Long idUsuario;
 
+	@JsonIgnore
+	@JsonInclude(Include.NON_NULL)
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario",insertable = false, updatable=false)
 	private Usuario usuario;

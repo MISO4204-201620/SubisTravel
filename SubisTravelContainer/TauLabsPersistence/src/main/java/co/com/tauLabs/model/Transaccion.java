@@ -15,8 +15,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Entity
 @Table(name="TRANSACCION", schema="SubisDB")
+@JsonInclude(Include.NON_NULL)
 public class Transaccion implements Serializable, IEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
@@ -28,8 +33,6 @@ public class Transaccion implements Serializable, IEntity<Long> {
 
 	private Integer cantidad;
 
-	private Byte eliminado;//TODO: Para que utilizariamos este estado
-
 	private String estado;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -40,13 +43,17 @@ public class Transaccion implements Serializable, IEntity<Long> {
 	@Column(name="id_item",nullable=false)
 	private Long idItem;
 	
+	@JsonIgnore
+	@JsonInclude(value=Include.NON_NULL, content=Include.NON_NULL)
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_item",insertable=false,updatable=false)
 	private Item item;
 
 	@Column(name="id_usuario",nullable=false)
 	private Long idUsuario;
-
+	
+	@JsonIgnore
+	@JsonInclude(value=Include.NON_NULL, content=Include.NON_NULL)
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario",insertable = false,updatable=false)
 	private Usuario usuario;
@@ -68,14 +75,6 @@ public class Transaccion implements Serializable, IEntity<Long> {
 
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
-	}
-
-	public Byte getEliminado() {
-		return this.eliminado;
-	}
-
-	public void setEliminado(Byte eliminado) {
-		this.eliminado = eliminado;
 	}
 
 	public String getEstado() {

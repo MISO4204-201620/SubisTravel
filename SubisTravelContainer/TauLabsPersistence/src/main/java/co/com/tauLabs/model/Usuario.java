@@ -14,8 +14,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Entity
 @Table(name="USUARIO", schema="SubisDB")
+@JsonInclude(Include.NON_NULL)
 public class Usuario implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -35,28 +40,36 @@ public class Usuario implements Serializable, IEntity<Long> {
 	@Column(name="id_entidad",nullable = false)
 	private Long idEntidad;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_entidad",insertable=false,updatable=false)
 	private Entidad entidad;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuario")
 	private List<Calificacion> calificaciones;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuario")
 	private List<Catalogo> catalogos;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuarioOrigen")
 	private List<Mensaje> mensajesOrigen;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuarioDestino")
 	private List<Mensaje> mensajesDestino;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuario")
 	private List<Pregunta> preguntas;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuario")
 	private List<RolUsuario> rolesUsuario;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuario")
 	private List<Transaccion> transacciones;
 

@@ -27,36 +27,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>co.com.tauLabs</groupId>
-            <artifactId>TauLabsEntidadesEJB</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>co.com.tauLabs</groupId>
-            <artifactId>TauLabsItemsEJB</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>co.com.tauLabs</groupId>
-            <artifactId>TauLabsQualificationEJB</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>co.com.tauLabs</groupId>
-            <artifactId>TauLabsUtils</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>co.com.tauLabs</groupId>
-            <artifactId>SubisTravelCommon</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>1.19</version>
