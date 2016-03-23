@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +38,7 @@ public class Pregunta implements Serializable, IEntity<Long> {
 	@Column(name="id_catalogo")
 	private Long idCatalogo;
 	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_catalogo",insertable = false, updatable=false)
 	private Catalogo catalogo;
@@ -52,11 +54,19 @@ public class Pregunta implements Serializable, IEntity<Long> {
 	private Long idUsuario;
 
 	@JsonIgnore
-	@JsonInclude(Include.NON_NULL)
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario",insertable = false, updatable=false)
 	private Usuario usuario;
 
+	@Column(name="id_pregunta_padre")
+	private Long idPreguntaPadre;
+	
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_pregunta_padre",insertable = false, updatable=false)
+	private Pregunta preguntaPadre;
+	
+	
 	public Pregunta() {
 	}
 
@@ -131,5 +141,27 @@ public class Pregunta implements Serializable, IEntity<Long> {
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
+	public Pregunta getPreguntaPadre() {
+		return preguntaPadre;
+	}
+
+	public void setPreguntaPadre(Pregunta preguntaPadre) {
+		this.preguntaPadre = preguntaPadre;
+	}
+	
+	public Long getIdPreguntaPadre() {
+		return idPreguntaPadre;
+	}
+
+	public void setIdPreguntaPadre(Long idPreguntaPadre) {
+		this.idPreguntaPadre = idPreguntaPadre;
+	}
+	@PrePersist
+	void preInsert() {
+		setFecha(new Date());
+	}
+
+	
 
 }

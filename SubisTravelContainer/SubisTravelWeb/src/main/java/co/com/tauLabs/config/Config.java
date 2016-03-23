@@ -7,7 +7,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import co.com.tauLabs.controller.AutenticacionController;
-import co.com.tauLabs.service.rest.EntidadServiceRS;
+//import co.com.tauLabs.service.rest.EntidadServiceRS;
 
 //@ApplicationPath("/services")
 //public class Config extends Application {
