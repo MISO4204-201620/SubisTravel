@@ -16,7 +16,9 @@ public enum QueryName {
 	CALIFICACIONES_BY_ITEM("calificaciones.byItem"),
 	CALIFICACIONES_BY_CATALOG("calificaciones.byCatalogo"),
 	CLASIFICACIONES_ALL("clasificaciones.all"),
-	CATALOGOS_ALL("catalogos.all");
+	CATALOGOS_ALL("catalogos.all"),
+	PREGUNTAS_BY_ITEM("preguntas.byItem"),
+	PREGUNTAS_BY_CATALOG("preguntas.byCatalogo");
 	
 	private String value;
 	

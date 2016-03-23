@@ -43,4 +43,18 @@
 			<![CDATA[SELECT c FROM Clasificacion c]]> 
         </query>
 	</named-query>
+	<named-query name="preguntas.byItem">
+		<description>Return a list of Questions by a Item id</description>
+		<query>
+			<![CDATA[SELECT q FROM Pregunta q 
+				WHERE q.idItem = :idItem]]> 
+        </query>
+	</named-query>
+	<named-query name="preguntas.byCatalogo">
+		<description>Return a list of Questions by a Catalog id</description>
+		<query>
+			<![CDATA[SELECT q FROM Pregunta q 
+				WHERE q.idCatalogo = :idCatalogo]]> 
+        </query>
+	</named-query>
 </entity-mappings>
