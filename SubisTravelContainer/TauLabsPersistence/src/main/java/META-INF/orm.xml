@@ -57,4 +57,13 @@
 				WHERE q.idCatalogo = :idCatalogo]]> 
         </query>
 	</named-query>
+	<named-query name="transacciones.byItembyUserByState">
+		<description>Return a list of Transactions by a User id and State</description>
+		<query>
+			<![CDATA[SELECT t FROM Transaccion t 
+				WHERE t.idItem    =  :idItem
+				  AND t.idUsuario =  :idUsuario
+				  AND t.estado    =  :estado]]> 
+        </query>
+	</named-query>
 </entity-mappings>

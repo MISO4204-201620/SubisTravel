@@ -10,4 +10,6 @@ public interface IItemDao extends IGenericDao<Entidad, Long> {
 	
 	PaginateDTO filtrados(FilterDTO filtros) throws PersistenceEJBException;
 	Item obtenerItemPorId(Long id) throws PersistenceEJBException;
+	Boolean permiteCalificarItemPorUsuario(Long id,Long idUsuario) throws PersistenceEJBException;
+	
 }

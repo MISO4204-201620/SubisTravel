@@ -11,13 +11,16 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import co.com.tauLabs.constant.QueryName;
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
+import co.com.tauLabs.enums.TransaccionEstadoEnum;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ValidationException;
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.model.Item;
+import co.com.tauLabs.model.Pregunta;
 
 @Stateless
 @Named
@@ -156,7 +159,22 @@ public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Ser
     		logger.error("CP Erro consultando Entidades por tipo, causa: "+e.getMessage());
     		throw new PersistenceException("CP Error ejecutnao el metodo obtenerEntidadesPorTipo,causa: "+e.getMessage());
     	}
-		
+
 	}
     
+	@Override
+	public Boolean permiteCalificarItemPorUsuario(Long id, Long idUsuario) throws PersistenceEJBException {
+		logger.debug("CP iniciando metodo permiteCalificarItemPorUsuario()");
+		try{
+    		if(idUsuario==null)throw new Exception("El identificador es nulo");
+    		TypedQuery<Pregunta> namedQuery = this.em.createNamedQuery(QueryName.TRANSACCIONES_BY_ITEM_BY_USER_BY_STATE.getValue(), Pregunta.class);
+    		namedQuery.setParameter("idItem",id);
+    		namedQuery.setParameter("idUsuario",idUsuario);
+    		namedQuery.setParameter("estado",TransaccionEstadoEnum.COMPLETADA.getValue());
+    		return namedQuery.getResultList().size()>0?true:false;
+    	}catch(Exception e){
+    		logger.error("CP Error consultando Transacciones por usuario por estado, causa: "+e.getMessage());
+    		throw new PersistenceException("CP Error ejecutnao el metodo permiteCalificarItemPorUsuario,causa: "+e.getMessage());
+    	}
+	}
 }

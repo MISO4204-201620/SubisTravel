@@ -17,4 +17,6 @@ public interface IItemService {
 	PaginateDTO filtrados(FilterDTO filtros) throws ServiceEJBException;
 
 	Item obtenerItemPorId(Long id) throws ServiceEJBException;
+	
+	Boolean permiteCalificarItemPorUsuario(Long id, Long idUsuario) throws ServiceEJBException;
 }

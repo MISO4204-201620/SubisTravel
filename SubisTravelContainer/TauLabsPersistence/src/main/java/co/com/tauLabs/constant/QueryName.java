@@ -18,7 +18,8 @@ public enum QueryName {
 	CLASIFICACIONES_ALL("clasificaciones.all"),
 	CATALOGOS_ALL("catalogos.all"),
 	PREGUNTAS_BY_ITEM("preguntas.byItem"),
-	PREGUNTAS_BY_CATALOG("preguntas.byCatalogo");
+	PREGUNTAS_BY_CATALOG("preguntas.byCatalogo"),
+	TRANSACCIONES_BY_ITEM_BY_USER_BY_STATE("transacciones.byItembyUserByState");
 	
 	private String value;
 	

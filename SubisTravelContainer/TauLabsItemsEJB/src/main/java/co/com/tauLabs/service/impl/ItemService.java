@@ -58,4 +58,16 @@ public class ItemService implements IItemService,Serializable {
 		}
 	}
 	
+	@Override
+	public Boolean permiteCalificarItemPorUsuario(Long id, Long idUsuario) throws ServiceEJBException {
+		logger.debug("CS iniciando metodo obtenerItemPorId()");
+		try{
+			if(idUsuario==null) throw new Exception("El ID ingresado es nulo");
+			return itemDao.permiteCalificarItemPorUsuario(id, idUsuario);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido validando si permite calificar un item por idUsuario, causa: "+e.getMessage());
+		}
+	}
 }

@@ -52,4 +52,15 @@ public class ItemServiceRS{
 		}
 	}
 	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{id}/permiteCalificarItem/{idUsuario}")
+	public Boolean permiteCalificarItemPorUsuario(@PathParam("id") long id,@PathParam("idUsuario") long idUsuario){
+		logger.info("obtenerItemPorId Services REST");
+		try {
+			return itemService.permiteCalificarItemPorUsuario(id, idUsuario);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }
