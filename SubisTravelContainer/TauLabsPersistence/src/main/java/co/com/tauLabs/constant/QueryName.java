@@ -17,6 +17,8 @@ public enum QueryName {
 	CALIFICACIONES_BY_CATALOG("calificaciones.byCatalogo"),
 	CLASIFICACIONES_ALL("clasificaciones.all"),
 	CATALOGOS_ALL("catalogos.all"),
+	USUARIO_BY_EMAIL("usuario.byEmail"),
+	USUARIO_BY_SOCIAL_ID("usuario.bySocialId"),
 	PREGUNTAS_BY_ITEM("preguntas.byItem"),
 	PREGUNTAS_BY_CATALOG("preguntas.byCatalogo"),
 	TRANSACCIONES_BY_ITEM_BY_USER_BY_STATE("transacciones.byItembyUserByState");
