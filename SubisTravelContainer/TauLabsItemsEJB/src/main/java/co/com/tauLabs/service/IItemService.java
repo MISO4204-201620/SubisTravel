@@ -19,4 +19,8 @@ public interface IItemService {
 	Item obtenerItemPorId(Long id) throws ServiceEJBException;
 	
 	Boolean permiteCalificarItemPorUsuario(Long id, Long idUsuario) throws ServiceEJBException;
+	
+	Item crearItem(Item item) throws ServiceEJBException;
+	
+	Item publicarItem(Long id) throws ServiceEJBException;
 }

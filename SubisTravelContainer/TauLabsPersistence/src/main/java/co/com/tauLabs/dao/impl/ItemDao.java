@@ -18,13 +18,12 @@ import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.enums.TransaccionEstadoEnum;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ValidationException;
-import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.model.Item;
 import co.com.tauLabs.model.Pregunta;
 
 @Stateless
 @Named
-public class ItemDao extends GenericDao<Entidad, Long>  implements IItemDao, Serializable{
+public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serializable{
 	
 	private static final long serialVersionUID = 554771308104758587L;
 	

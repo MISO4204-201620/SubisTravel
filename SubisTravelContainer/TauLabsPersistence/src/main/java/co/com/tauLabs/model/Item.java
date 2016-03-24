@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
 @Table(name="ITEM", schema="SubisDB")
 @XmlRootElement
@@ -256,5 +257,4 @@ public class Item implements Serializable, IEntity<Long> {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	
 }

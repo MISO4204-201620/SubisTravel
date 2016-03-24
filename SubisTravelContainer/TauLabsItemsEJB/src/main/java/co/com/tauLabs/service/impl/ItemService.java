@@ -11,6 +11,7 @@ import org.jboss.logging.Logger;
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
+import co.com.tauLabs.enums.ItemEstadoEnum;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ServiceEJBException;
 import co.com.tauLabs.exception.ValidationException;
@@ -68,6 +69,28 @@ public class ItemService implements IItemService,Serializable {
 			throw new ServiceEJBException(e.getMessage());
 		}catch(Exception e){
 			throw new ServiceEJBException("CS Ha ocurrido validando si permite calificar un item por idUsuario, causa: "+e.getMessage());
+		}
+	}
+	
+	@Override
+	public Item crearItem(Item item) throws ServiceEJBException {
+		try{
+			item.setEstado(ItemEstadoEnum.CREADO.getValue());
+			return itemDao.guardar(item);
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al crear el îtem, causa: "+e.getMessage());
+		}
+	}
+	
+	@Override
+	public Item publicarItem(Long id) throws ServiceEJBException {
+		try{
+			Item item = this.obtenerItemPorId(id);
+			item.setEstado(ItemEstadoEnum.PUBLICADO.getValue());
+			itemDao.modificar(item);
+			return item;
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al crear el îtem, causa: "+e.getMessage());
 		}
 	}
 }
