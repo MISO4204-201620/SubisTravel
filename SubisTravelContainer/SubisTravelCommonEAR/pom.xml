@@ -57,6 +57,13 @@
 		</dependency>
 		<dependency>
 			<groupId>co.com.tauLabs</groupId>
+			<artifactId>TauLabsSecurity</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>co.com.tauLabs</groupId>
 			<artifactId>TauLabsTransaccionesEJB</artifactId>
 			<version>1.0</version>
 			<scope>provided</scope>
@@ -147,6 +154,10 @@
 						<ejbModule>
 							<groupId>co.com.tauLabs</groupId>
 							<artifactId>TauLabsItemsEJB</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>co.com.tauLabs</groupId>
+							<artifactId>TauLabsSecurity</artifactId>
 						</ejbModule>
 						<ejbModule>
 							<groupId>co.com.tauLabs</groupId>

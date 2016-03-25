@@ -6,11 +6,14 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
+import co.com.tauLabs.dao.IEntidadDao;
 import co.com.tauLabs.dao.IUsuarioDao;
 import co.com.tauLabs.dto.LoginDTO;
 import co.com.tauLabs.dto.SessionClientDTO;
+import co.com.tauLabs.dto.SocialLoginDTO;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ServiceEJBException;
+import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.service.IUsuarioService;
 
 @Stateless
@@ -18,6 +21,7 @@ import co.com.tauLabs.service.IUsuarioService;
 public class UsuarioService implements IUsuarioService {
 
 	@Inject private IUsuarioDao usuarioDao;
+	@Inject private IEntidadDao entidadDao;
 
 	final static Logger logger = Logger.getLogger(UsuarioService.class);
 	
@@ -38,12 +42,22 @@ public class UsuarioService implements IUsuarioService {
 	}
 	
 	@Override
-	public SessionClientDTO accederConSocialId(String socialId)  throws ServiceEJBException{
+	public SessionClientDTO accederConSocialId(SocialLoginDTO socialLoginDTO)  throws ServiceEJBException{
 		logger.debug("CS iniciando metodo accederConSocialId()");
 		try{
-			if(socialId==null) throw new Exception("El identificador social es nulo");
-	
-			return usuarioDao.accederConSocialId(socialId);
+			if(socialLoginDTO==null) throw new Exception("El objeto de login social es nulo");
+			if(socialLoginDTO.getSocialId()==null) throw new Exception("El id social es nulo");
+			
+			SessionClientDTO sessionClient = usuarioDao.accederConSocialId(socialLoginDTO.getSocialId());
+			if(sessionClient!=null){
+				Entidad entidad = entidadDao.obtenerPorId(sessionClient.getIdEntity());
+				if(entidad.getImagenPrincipal()==null || entidad.getImagenPrincipal().equals("")){
+					entidad.setImagenPrincipal(socialLoginDTO.getPicture());
+					entidadDao.modificar(entidad);
+				}
+			}
+			
+			return sessionClient;
 		}catch(PersistenceEJBException e){
 			throw new ServiceEJBException(e.getMessage());
 		}catch(Exception e){

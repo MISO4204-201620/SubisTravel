@@ -13,6 +13,7 @@ public enum QueryName {
 
 	CONTENIDO_BY_ITEM("contenido.byItem"),
 	ENTIDADES_BY_TIPO("entidades.byTipo"),
+	ENTIDADES_BY_ESTADO("entidades.byEstado"),
 	CALIFICACIONES_BY_ITEM("calificaciones.byItem"),
 	CALIFICACIONES_BY_CATALOG("calificaciones.byCatalogo"),
 	CLASIFICACIONES_ALL("clasificaciones.all"),

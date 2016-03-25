@@ -15,6 +15,7 @@ import org.jboss.logging.Logger;
 
 import co.com.tauLabs.dto.LoginDTO;
 import co.com.tauLabs.dto.SessionClientDTO;
+import co.com.tauLabs.dto.SocialLoginDTO;
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.service.IUsuarioService;
 
@@ -57,10 +58,10 @@ public class UsuarioServiceRS{
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("accederConSocialId")
-	public SessionClientDTO accederConSocialId(String socialId){
+	public SessionClientDTO accederConSocialId(SocialLoginDTO socialLoginDTO){
 		logger.debug("CR iniciando servicio accederConSocialId()");
 		try {
-			return usuarioService.accederConSocialId(socialId);
+			return usuarioService.accederConSocialId(socialLoginDTO);
 		} catch (Exception e) {
 			logger.error("CR Error validando login de usuario, causa: "+e.getMessage());
 			return null;

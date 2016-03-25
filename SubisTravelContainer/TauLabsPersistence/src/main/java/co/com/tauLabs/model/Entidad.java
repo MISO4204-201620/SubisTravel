@@ -47,6 +47,9 @@ public class Entidad implements Serializable, IEntity<Long> {
 	@Column(name="imagenPrincipal")
 	private String imagenPrincipal;
 
+	@Column(name="estado")
+	private String estado;
+	
 	@Column(name="id_tipo", nullable = false)
 	private Long idTipo;
 	
@@ -147,6 +150,14 @@ public class Entidad implements Serializable, IEntity<Long> {
 
 	public void setImagenPrincipal(String imagenPrincipal) {
 		this.imagenPrincipal = imagenPrincipal;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 }

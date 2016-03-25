@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import co.com.tauLabs.constant.QueryName;
 import co.com.tauLabs.dao.IEntidadDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
@@ -31,8 +33,8 @@ public class EntidadDao extends GenericDao<Entidad, Long>  implements IEntidadDa
 		logger.debug("CP iniciando metodo filtrados()");
 		try{
 			if(filtros==null)throw new ValidationException("El filtro ingresado es nulo");
-			String HQL = "SELECT e FROM Entidad e ";
-			String HQLCount = "SELECT COUNT(e.id) FROM Entidad e ";
+			String HQL = "SELECT DISTINCT e FROM Entidad e ";
+			String HQLCount = "SELECT COUNT(DISTINCT e.id) FROM Entidad e ";
 			String ands = "";
 			String joins = "";
 			PaginateDTO paginate = new PaginateDTO();
@@ -91,4 +93,39 @@ public class EntidadDao extends GenericDao<Entidad, Long>  implements IEntidadDa
 		}
 	}
     
+	@Override
+	public List<Entidad> obtenerEntidadesPorEstado(String estado) throws PersistenceException  {
+		logger.debug("CP iniciando metodo obtenerEntidadesPorEstado()");
+		try{
+	    	
+    		if(estado==null)throw new Exception("El estado no es vÃ¡lido");
+    		//String HQL = "SELECT e FROM Entidad e WHERE e.id_tipo=:tipo ";
+    		TypedQuery<Entidad> namedQuery = this.em.createNamedQuery(QueryName.ENTIDADES_BY_ESTADO.getValue(), Entidad.class);
+    		namedQuery.setParameter("estado",estado);
+    		return namedQuery.getResultList();
+    		
+    	}catch(Exception e){
+    		logger.error("CP Erro consultando Entidades por tipo, causa: "+e.getMessage());
+    		throw new PersistenceException("CP Error ejecutnao el metodo obtenerEntidadesPorEstado,causa: "+e.getMessage());
+    	}
+	}
+	
+	@Override
+	public List<Entidad> obtenerEntidadesPorTipo(Long idTipo) throws PersistenceException {
+		logger.debug("CP iniciando metodo obtenerEntidadesPorTipo()");
+		try{
+	    	
+	 		if(idTipo==null)throw new Exception("El identificador es nulo");
+	 		
+	 		TypedQuery<Entidad> namedQuery = this.em.createNamedQuery(QueryName.ENTIDADES_BY_TIPO.getValue(), Entidad.class);
+	 		namedQuery.setParameter("idTipo",idTipo);
+	 		return namedQuery.getResultList();
+	 		
+	 	}catch(Exception e){
+	 		logger.error("CP Erro consultando Entidades por tipo, causa: "+e.getMessage());
+	 		throw new PersistenceException("CP Error ejecutnao el metodo obtenerEntidadesPorTipo,causa: "+e.getMessage());
+	 	}
+		
+	}
+	
 }
