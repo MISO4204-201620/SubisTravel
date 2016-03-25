@@ -49,4 +49,19 @@ public class PreguntaDao extends GenericDao<Pregunta, Long>  implements IPregunt
     		throw new PersistenceException("CP Error ejecutnao el metodo obtenerCalificacionesPorCatalogo,causa: "+e.getMessage());
     	}
 	}
+	
+	@Override
+	public List<Pregunta> obtenerPreguntasPorPreguntaPadre(Long idPreguntaPadre) throws Exception {
+		logger.debug("CP iniciando metodo obtenerPreguntasPorPreguntaPadre()");
+		try{
+    		if(idPreguntaPadre==null)throw new Exception("El identificador es nulo");
+    		TypedQuery<Pregunta> namedQuery = this.em.createNamedQuery(QueryName.PREGUNTAS_BY_PREGUNTA_PADRE.getValue(), Pregunta.class);
+    		namedQuery.setParameter("idPreguntaPadre",idPreguntaPadre);
+    		return namedQuery.getResultList();
+    		
+    	}catch(Exception e){
+    		logger.error("CP Erro consultando Preguntas por Catalogo, causa: "+e.getMessage());
+    		throw new PersistenceException("CP Error ejecutnao el metodo obtenerPreguntasPorPreguntaPadre,causa: "+e.getMessage());
+    	}
+	}
 }

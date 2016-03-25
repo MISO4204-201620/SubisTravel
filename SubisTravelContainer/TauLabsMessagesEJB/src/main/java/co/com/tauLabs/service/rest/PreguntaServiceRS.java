@@ -69,4 +69,18 @@ public class PreguntaServiceRS{
 			return null;
 		}
 	}
+	
+	@Path("/respuestas/{idPregunta}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Pregunta> obtenerPreguntasPorPreguntaPadre(@PathParam("idPregunta")Long idPregunta){
+		logger.debug("CR iniciando servicio obtenerPreguntasPorItem()");
+		try{
+			return preguntaService.obtenerPreguntasPorPreguntaPadre(idPregunta);
+		}catch(Exception e){
+			logger.error("CR Error consultando Preguntas por pregunta padre, causa: "+e.getMessage());
+			return null;
+		}
+	}
 }

@@ -15,4 +15,6 @@ public interface IPreguntaService {
 	List<Pregunta> obtenerPreguntasPorItem(Long idItem) throws Exception;
 	
 	List<Pregunta> obtenerPreguntasPorCatalogo(Long idCatalogo) throws Exception;
+	
+	List<Pregunta> obtenerPreguntasPorPreguntaPadre(Long idPreguntaPadre) throws Exception;
 }

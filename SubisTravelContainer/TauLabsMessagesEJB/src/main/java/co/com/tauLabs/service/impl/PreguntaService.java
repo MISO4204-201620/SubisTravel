@@ -65,5 +65,18 @@ public class PreguntaService implements IPreguntaService,Serializable {
 			throw new ServiceEJBException("CS Ha ocurrido un error obteniendo el listado de Preguntas por Catalogos, causa: "+e.getMessage());
 		}
 	}
+	
+	@Override
+	public List<Pregunta> obtenerPreguntasPorPreguntaPadre(Long idPreguntaPadre) throws Exception {
+		logger.debug("CS iniciando metodo obtenerPreguntasPorPreguntaPadre()");
+		try{
+			if(idPreguntaPadre==null) throw new Exception("el id del catalogo es nulo");
+			return preguntaDao.obtenerPreguntasPorPreguntaPadre(idPreguntaPadre);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error obteniendo el listado de Preguntas por pregunta padre, causa: "+e.getMessage());
+		}
+	}
 
 }

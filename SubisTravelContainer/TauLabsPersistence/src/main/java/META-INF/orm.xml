@@ -48,16 +48,27 @@
 		<description>Return a list of Questions by a Item id</description>
 		<query>
 			<![CDATA[SELECT q FROM Pregunta q 
-				WHERE q.idItem = :idItem]]> 
+				WHERE q.idItem = :idItem
+				  AND q.idPreguntaPadre is null]]> 
         </query>
 	</named-query>
 	<named-query name="preguntas.byCatalogo">
 		<description>Return a list of Questions by a Catalog id</description>
 		<query>
 			<![CDATA[SELECT q FROM Pregunta q 
-				WHERE q.idCatalogo = :idCatalogo]]> 
+				WHERE q.idCatalogo = :idCatalogo
+				  AND q.idPreguntaPadre is null]]> 
         </query>
 	</named-query>
+	<named-query name="preguntas.byPreguntaPadre">
+		<description>Return a list of Questions by a Item id</description>
+		<query>
+			<![CDATA[SELECT q FROM Pregunta q 
+				WHERE q.idPreguntaPadre = :idPreguntaPadre
+				 ORDER by q.fecha asc]]> 
+        </query>
+	</named-query>
+	
 	<named-query name="transacciones.byItembyUserByState">
 		<description>Return a list of Transactions by a User id and State</description>
 		<query>
