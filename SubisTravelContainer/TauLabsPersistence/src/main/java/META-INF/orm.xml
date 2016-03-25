@@ -21,7 +21,8 @@
 		<description>Return a list of qualifications by a Item id</description>
 		<query>
 			<![CDATA[SELECT c FROM Calificacion c 
-				WHERE c.idItem = :idItem]]> 
+				WHERE c.idItem = :idItem
+				ORDER by c.fecha desc]]> 
         </query>
 	</named-query>
 	<named-query name="calificaciones.byCatalogo">
@@ -90,4 +91,11 @@
         </query>
 	</named-query>
 	
+	<named-query name="entidades.byEstado">
+		<description>Return a list of entities by a state </description>
+		<query>
+			<![CDATA[SELECT e FROM Entidad e 
+				WHERE e.estado = :estado]]> 
+        </query>
+	</named-query>
 </entity-mappings>

@@ -119,4 +119,44 @@ public class EntidadServiceRS{
 		}
 	}
 	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("solicitudesBaja")
+	public List<Entidad> solicitudesBaja(){
+		logger.info("listar actualizado");
+		try {
+			return entidadService.solicitudesBaja();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
+	@GET
+	@Path("solicitarBaja/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response solicitarBaja(@PathParam("id") Long id){
+		try{
+			Entidad entidad = entidadService.solicitarBaja(id);
+			return Response.ok().entity(entidad).build();
+		}
+		catch(Exception e){
+			return Response.status(404).build();
+		}
+	}
+	
+	@GET
+	@Path("darBaja/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response darBaja(@PathParam("id") Long id){
+		try{
+			Entidad entidad = entidadService.darBaja(id);
+			return Response.ok().entity(entidad).build();
+		}
+		catch(Exception e){
+			return Response.status(404).build();
+		}
+	}
 }

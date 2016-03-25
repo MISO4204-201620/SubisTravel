@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import co.com.tauLabs.constant.QueryName;
 import co.com.tauLabs.dao.IEntidadDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
@@ -91,4 +93,20 @@ public class EntidadDao extends GenericDao<Entidad, Long>  implements IEntidadDa
 		}
 	}
     
+	@Override
+	public List<Entidad> obtenerEntidadesPorEstado(String estado) throws PersistenceException  {
+		logger.debug("CP iniciando metodo obtenerEntidadesPorEstado()");
+		try{
+	    	
+    		if(estado==null)throw new Exception("El estado no es válido");
+    		//String HQL = "SELECT e FROM Entidad e WHERE e.id_tipo=:tipo ";
+    		TypedQuery<Entidad> namedQuery = this.em.createNamedQuery(QueryName.ENTIDADES_BY_ESTADO.getValue(), Entidad.class);
+    		namedQuery.setParameter("estado",estado);
+    		return namedQuery.getResultList();
+    		
+    	}catch(Exception e){
+    		logger.error("CP Erro consultando Entidades por tipo, causa: "+e.getMessage());
+    		throw new PersistenceException("CP Error ejecutnao el metodo obtenerEntidadesPorEstado,causa: "+e.getMessage());
+    	}
+	}
 }
