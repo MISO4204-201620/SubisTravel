@@ -36,8 +36,6 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 		super.genericDao = (IGenericDao) entidadDao;
 	}
 	
-	
-	
 	@Override
 	public List<Entidad> obtenerEntidadesPorTipo(Long idTipo) throws ServiceEJBException {
 		logger.debug("CS iniciando metodo obtenerEntidadesPorTipo()");
@@ -50,7 +48,7 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 			throw new ServiceEJBException("CS Ha ocurrido un error consultando entidades por tipo, causa: "+e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public PaginateDTO filtrados(FilterDTO filtros) throws ServiceEJBException {
 		logger.debug("CS iniciando metodo filtrados()");

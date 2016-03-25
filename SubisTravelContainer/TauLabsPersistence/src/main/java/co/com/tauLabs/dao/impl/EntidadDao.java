@@ -97,9 +97,7 @@ public class EntidadDao extends GenericDao<Entidad, Long>  implements IEntidadDa
 	public List<Entidad> obtenerEntidadesPorEstado(String estado) throws PersistenceException  {
 		logger.debug("CP iniciando metodo obtenerEntidadesPorEstado()");
 		try{
-	    	
     		if(estado==null)throw new Exception("El estado no es vÃ¡lido");
-    		//String HQL = "SELECT e FROM Entidad e WHERE e.id_tipo=:tipo ";
     		TypedQuery<Entidad> namedQuery = this.em.createNamedQuery(QueryName.ENTIDADES_BY_ESTADO.getValue(), Entidad.class);
     		namedQuery.setParameter("estado",estado);
     		return namedQuery.getResultList();
@@ -127,5 +125,4 @@ public class EntidadDao extends GenericDao<Entidad, Long>  implements IEntidadDa
 	 	}
 		
 	}
-	
 }

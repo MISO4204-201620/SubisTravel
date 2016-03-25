@@ -17,5 +17,7 @@ public interface ITransaccionService {
 	List<Transaccion> enCarritoPorEntidad(Long idEntidad) throws ServiceEJBException;
 	
 	void realizarCompra(List<Long> idsTransaferencia) throws ServiceEJBException;
+
+	List<Transaccion> getAllTransactions() throws ServiceEJBException;
 	
 }

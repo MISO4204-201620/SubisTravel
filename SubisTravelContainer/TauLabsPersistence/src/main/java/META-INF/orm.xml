@@ -129,5 +129,5 @@
 				WHERE e.estado = :estado]]> 
         </query>
 	</named-query>
-	
+
 </entity-mappings>

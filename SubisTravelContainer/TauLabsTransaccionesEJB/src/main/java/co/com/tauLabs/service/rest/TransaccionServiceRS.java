@@ -84,6 +84,19 @@ public class TransaccionServiceRS{
 		}
 	}
 	
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getalltransaction")
+	public List<Transaccion> getAllTransaction(){
+		logger.info("getalltransaction");
+		try {
+			List<Transaccion> transacciones =  transaccionService.getAllTransactions();
+			return transacciones;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 
 }

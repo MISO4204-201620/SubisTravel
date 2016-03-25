@@ -67,5 +67,19 @@ public class TransaccionService implements ITransaccionService {
 			throw new ServiceEJBException("CS Ha ocurrido un error al consultar los items de un carrito de compras, causa: "+e.getMessage());
 		}
 	}
+
+	@Override
+	public List<Transaccion> getAllTransactions( ) throws ServiceEJBException {
+	
+		try{
+			List<Transaccion> transacciones =  transaccionDao.getAllTransaction();
+			return transacciones;
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al consultar los items de un carrito de compras, causa: "+e.getMessage());
+		}
+	
+	}
 	
 }
