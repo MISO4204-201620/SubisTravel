@@ -15,17 +15,17 @@ import co.com.tauLabs.model.Item;
 import co.com.tauLabs.model.Transaccion;
 
 @Stateless
-public class TransaccionDao extends GenericDao<Transaccion, Long>  implements ITransaccionDao, Serializable{
-	
-	private static final long serialVersionUID = 554771308104758587L;
-	
-    public TransaccionDao() {
+public class TransaccionDao extends GenericDao<Transaccion, Long> implements ITransaccionDao, Serializable {
 
-    }
+	private static final long serialVersionUID = 554771308104758587L;
+
+	public TransaccionDao() {
+
+	}
 
 	@Override
 	public Transaccion agregarItemACarrito(ShoppingItem item) throws PersistenceEJBException {
-		try{
+		try {
 			Transaccion transaccion = new Transaccion();
 			transaccion.setEstado(TransaccionEstadoEnum.CARRITO.getValue());
 			transaccion.setIdItem(item.getIdItem());
@@ -36,54 +36,75 @@ public class TransaccionDao extends GenericDao<Transaccion, Long>  implements IT
 			transaccion.setValor(itemAgregar.getValor() * item.getQuantity().intValue());
 			em.persist(transaccion);
 			return transaccion;
-		}catch(Exception e){
-			throw new PersistenceEJBException("CP Ha ocurrido un error al agregar el item al carrito de compras, causa: "+e.getMessage());
+		} catch (Exception e) {
+			throw new PersistenceEJBException(
+					"CP Ha ocurrido un error al agregar el item al carrito de compras, causa: " + e.getMessage());
 		}
 	}
 
 	@Override
 	public void eliminarItemDeCarrito(Long idTransaccion) throws PersistenceEJBException {
-		try{
+		try {
 			Transaccion transaccion = em.find(Transaccion.class, idTransaccion);
-			if(transaccion.getEstado().equals(TransaccionEstadoEnum.CARRITO.getValue()) || 
-					transaccion.getEstado().equals(TransaccionEstadoEnum.PROCESADA_ERRONEA.getValue())){
+			if (transaccion.getEstado().equals(TransaccionEstadoEnum.CARRITO.getValue())
+					|| transaccion.getEstado().equals(TransaccionEstadoEnum.PROCESADA_ERRONEA.getValue())) {
 				transaccion.setEstado(TransaccionEstadoEnum.ELIMINADA.getValue());
 				em.merge(transaccion);
-			}else{
-				throw new Exception("El item no se puede eliminar dado que se encuentra en estado "+transaccion.getEstado());
+			} else {
+				throw new Exception(
+						"El item no se puede eliminar dado que se encuentra en estado " + transaccion.getEstado());
 			}
-		}catch(Exception e){
-			throw new PersistenceEJBException("CP Ha ocurrido un error al agregar el item al carrito de compras, causa: "+e.getMessage());
+		} catch (Exception e) {
+			throw new PersistenceEJBException(
+					"CP Ha ocurrido un error al agregar el item al carrito de compras, causa: " + e.getMessage());
 		}
 	}
 
 	@Override
 	public List<Transaccion> enCarritoPorEntidad(Long idEntidad) throws PersistenceEJBException {
-		try{
-			TypedQuery<Transaccion> tQuery = em.createNamedQuery("transacciones.enCarritoPorEntidad", Transaccion.class);
+		try {
+			TypedQuery<Transaccion> tQuery = em.createNamedQuery("transacciones.enCarritoPorEntidad",
+					Transaccion.class);
 			tQuery.setParameter("idEntidad", idEntidad);
 			List<Transaccion> transacciones = tQuery.getResultList();
 			return transacciones;
-		}catch(Exception e){ 
-			throw new PersistenceEJBException("CP Ha ocurrido un error al cargar los items en el carrito de una entidad, causa: "+e.getMessage());
+		} catch (Exception e) {
+			throw new PersistenceEJBException(
+					"CP Ha ocurrido un error al cargar los items en el carrito de una entidad, causa: "
+							+ e.getMessage());
 		}
 	}
 
 	@Override
 	public void realizarCompra(List<Long> idsTransaferencia) throws PersistenceEJBException {
-		try{
-			//Traer las transferencias
-			
-			//Recorrerlas
-			
-			//Generar las copias exactas
-			
-			//Cambiar el estado a completado
-			
-			
-		}catch(Exception e){ 
-			throw new PersistenceEJBException("CP Ha ocurrido un error al registrar el pago de las transferencias, causa: "+e.getMessage());
+		try {
+			// Traer las transferencias
+
+			// Recorrerlas
+
+			// Generar las copias exactas
+
+			// Cambiar el estado a completado
+
+		} catch (Exception e) {
+			throw new PersistenceEJBException(
+					"CP Ha ocurrido un error al registrar el pago de las transferencias, causa: " + e.getMessage());
 		}
+	}
+
+	@Override
+	public List<Transaccion> getAllTransaction() throws PersistenceEJBException {
+		try {
+			TypedQuery<Transaccion> tQuery = em.createNamedQuery("transacciones.getAllTransaction",
+					Transaccion.class);
+			List<Transaccion> transacciones = tQuery.getResultList();
+			return transacciones;
+		} catch (Exception e) {
+			throw new PersistenceEJBException(
+					"CP Ha ocurrido un error al cargar los items en el carrito de una entidad, causa: "
+							+ e.getMessage());
+		}
+		// return null;
 	}
 
 }

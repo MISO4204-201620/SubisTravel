@@ -98,4 +98,11 @@
 				WHERE e.estado = :estado]]> 
         </query>
 	</named-query>
+	
+	<named-query name="transacciones.getAllTransaction">
+		<description>Return all  Transactions</description>
+		<query>
+			<![CDATA[SELECT t FROM Transaccion t]]> 
+        </query>
+	</named-query>
 </entity-mappings>
