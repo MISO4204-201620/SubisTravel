@@ -76,19 +76,27 @@ public class TransaccionDao extends GenericDao<Transaccion, Long> implements ITr
 	}
 
 	@Override
-	public void realizarCompra(List<Long> idsTransaferencia) throws PersistenceEJBException {
-		try {
-			// Traer las transferencias
-
-			// Recorrerlas
-
-			// Generar las copias exactas
-
-			// Cambiar el estado a completado
-
-		} catch (Exception e) {
-			throw new PersistenceEJBException(
-					"CP Ha ocurrido un error al registrar el pago de las transferencias, causa: " + e.getMessage());
+	public void realizarCompra(List<Long> idsTransacciones) throws PersistenceEJBException {
+		try{
+			//Traer las transferencias
+			TypedQuery<Transaccion> tQuery = em.createNamedQuery("transacciones.porIds", Transaccion.class);
+			tQuery.setParameter("idsTransacciones", idsTransacciones);
+			List<Transaccion> transacciones = tQuery.getResultList();
+			//Recorrerlas
+			for (Transaccion transaccion : transacciones) {
+				transaccion.setEstado(TransaccionEstadoEnum.PROCESADA_VALIDA.getValue());
+				em.merge(transaccion);
+				Transaccion transaccionHistorial = new Transaccion();
+				transaccionHistorial.setEstado(TransaccionEstadoEnum.COMPLETADA.getValue());
+				transaccionHistorial.setFecha(new Date());
+				transaccionHistorial.setIdItem(transaccion.getIdItem());
+				transaccionHistorial.setIdUsuario(transaccion.getIdUsuario());
+				transaccionHistorial.setCantidad(transaccion.getCantidad());
+				transaccionHistorial.setValor(transaccion.getValor());
+				em.persist(transaccionHistorial);
+			}
+		}catch(Exception e){ 
+			throw new PersistenceEJBException("CP Ha ocurrido un error al registrar el pago de las transferencias, causa: "+e.getMessage());
 		}
 	}
 

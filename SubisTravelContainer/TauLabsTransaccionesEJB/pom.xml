@@ -7,9 +7,7 @@
     <version>1.0</version>
   </parent>
 
-    <groupId>co.com.tauLabs</groupId>
     <artifactId>TauLabsTransaccionesEJB</artifactId>
-    <version>1.0</version>
     <packaging>ejb</packaging>
 
     <name>TauLabsTransaccionesEJB</name>

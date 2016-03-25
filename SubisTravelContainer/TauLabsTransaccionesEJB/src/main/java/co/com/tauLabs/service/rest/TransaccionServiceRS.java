@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.jboss.logging.Logger;
 
+import co.com.tauLabs.dto.PaymentDTO;
 import co.com.tauLabs.dto.ShoppingItem;
 import co.com.tauLabs.model.Transaccion;
 import co.com.tauLabs.service.ITransaccionService;
@@ -73,11 +74,12 @@ public class TransaccionServiceRS{
 	}
 	
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/realizarCompra")
-	public Response realizarCompra(List<Long> idsTransferencias){
+	public Response realizarCompra(PaymentDTO paymentDTO){
 		logger.info("realizarCompra");
 		try {
-			transaccionService.realizarCompra(idsTransferencias);
+			transaccionService.realizarCompra(paymentDTO.getIdsTransacction());
 			return Response.status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();

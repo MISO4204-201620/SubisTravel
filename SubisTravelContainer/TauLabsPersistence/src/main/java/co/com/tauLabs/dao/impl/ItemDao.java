@@ -101,7 +101,7 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 			HQL = HQL + joins + ands;
 			HQLCount = HQLCount + joins + ands;
 			int paginaActual = filtros.getPage()!=null ? Integer.valueOf(filtros.getPage()) : 1;
-			int	inicial = (10*paginaActual)-10;
+			int	inicial = (12*paginaActual)-12;
 
 			TypedQuery<Item> namedQuery = this.em.createQuery(HQL, Item.class);
 			TypedQuery<Long> namedQueryCount = this.em.createQuery(HQLCount, Long.class);
@@ -141,11 +141,11 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 			paginate.setElements(cantidadRegistros);
 			
 			//Cantidad de paginas
-			Long paginas = (long)Math.ceil(cantidadRegistros/10D);
+			Long paginas = (long)Math.ceil(cantidadRegistros/12D);
 			paginate.setPages(paginas);		
 			
 			namedQuery.setFirstResult(inicial);
-			namedQuery.setMaxResults(10);
+			namedQuery.setMaxResults(12);
 			
 			List<Item> items = namedQuery.getResultList();
 			paginate.setLstElements(new ArrayList<Object>());
