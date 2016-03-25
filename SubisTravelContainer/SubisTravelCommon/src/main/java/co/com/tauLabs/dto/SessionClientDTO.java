@@ -8,6 +8,7 @@ public class SessionClientDTO implements Serializable {
 	
 	private Long idEntity;
 	private Long idType;
+	private Long idUser;
 	
 	public Long getIdEntity() {
 		return idEntity;
@@ -20,6 +21,12 @@ public class SessionClientDTO implements Serializable {
 	}
 	public void setIdType(Long idType) {
 		this.idType = idType;
+	}
+	public Long getIdUser() {
+		return idUser;
+	}
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
 	
 }

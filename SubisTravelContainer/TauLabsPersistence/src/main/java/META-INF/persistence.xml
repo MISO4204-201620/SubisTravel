@@ -11,17 +11,19 @@
 		<class>co.com.tauLabs.model.Clasificacion</class>
 		<class>co.com.tauLabs.model.Consulta</class>
 		<class>co.com.tauLabs.model.Contenido</class>
+		<class>co.com.tauLabs.model.Direccion</class>
 		<class>co.com.tauLabs.model.Entidad</class>
 		<class>co.com.tauLabs.model.Estado</class>
 		<class>co.com.tauLabs.model.Item</class>
 		<class>co.com.tauLabs.model.Mensaje</class>
 		<class>co.com.tauLabs.model.Pregunta</class>
+		<class>co.com.tauLabs.model.RedSocial</class>
+		<class>co.com.tauLabs.model.RedSocialUsuario</class>
 		<class>co.com.tauLabs.model.Rol</class>
 		<class>co.com.tauLabs.model.RolUsuario</class>
 		<class>co.com.tauLabs.model.Tipo</class>
 		<class>co.com.tauLabs.model.Transaccion</class>
 		<class>co.com.tauLabs.model.Usuario</class>
-		<class>co.com.tauLabs.model.Direccion</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

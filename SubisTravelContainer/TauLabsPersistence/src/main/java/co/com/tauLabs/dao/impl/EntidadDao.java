@@ -37,11 +37,9 @@ public class EntidadDao extends GenericDao<Entidad, Long>  implements IEntidadDa
 			String joins = "";
 			PaginateDTO paginate = new PaginateDTO();
 			
-			if(filtros.getType()!=null){
-				ands = ands+"WHERE ";
-				ands = ands + "e.idTipo = :tipo ";
-				joins = "JOIN e.tipo t ";
-			}
+			ands = ands+"WHERE ";
+			ands = ands + "e.idTipo = 4 ";
+			joins = "JOIN e.tipo t ";
 			
 			if(filtros.getClasifications()!=null){
 				if(ands.equals("")){
@@ -62,11 +60,6 @@ public class EntidadDao extends GenericDao<Entidad, Long>  implements IEntidadDa
 			TypedQuery<Entidad> namedQuery = this.em.createQuery(HQL, Entidad.class);
 			TypedQuery<Long> namedQueryCount = this.em.createQuery(HQLCount, Long.class);
 				
-			if(filtros.getType()!=null){
-				namedQuery.setParameter("tipo",filtros.getType());
-				namedQueryCount.setParameter("tipo",filtros.getType());
-			}
-			
 			if(filtros.getClasifications()!=null){
 				namedQuery.setParameter("clasifications",filtros.getClasifications());
 				namedQueryCount.setParameter("clasifications",filtros.getClasifications());

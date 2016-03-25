@@ -59,6 +59,7 @@ public class UsuarioDao extends GenericDao<Usuario, Long>  implements IUsuarioDa
 			namedQuery.setMaxResults(1);
 			Usuario usuario = namedQuery.getSingleResult();
 			SessionClientDTO session = new SessionClientDTO();
+			session.setIdUser(usuario.getId());
 			session.setIdEntity(usuario.getIdEntidad());
 			session.setIdType(usuario.getEntidad().getIdTipo());
 			return session;

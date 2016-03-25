@@ -73,6 +73,10 @@ public class Usuario implements Serializable, IEntity<Long> {
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuario")
 	private List<Transaccion> transacciones;
 
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuario")
+	private List<RedSocialUsuario> redesSocialesUsuarios;
+
 	public Usuario() {
 	}
 
@@ -188,4 +192,12 @@ public class Usuario implements Serializable, IEntity<Long> {
 		this.idEntidad = idEntidad;
 	}
 
+	public List<RedSocialUsuario> getRedesSocialesUsuarios() {
+		return redesSocialesUsuarios;
+	}
+
+	public void setRedesSocialesUsuarios(List<RedSocialUsuario> redesSocialesUsuarios) {
+		this.redesSocialesUsuarios = redesSocialesUsuarios;
+	}
+	
 }

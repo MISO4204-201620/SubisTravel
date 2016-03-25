@@ -38,8 +38,8 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 		logger.debug("CP iniciando metodo filtrados()");
 		try{
 			if(filtros==null)throw new ValidationException("El filtro ingresado es nulo");
-			String HQL = "SELECT i FROM Item i ";
-			String HQLCount = "SELECT COUNT(i.id) FROM Item i ";
+			String HQL = "SELECT DISTINCT i FROM Item i ";
+			String HQLCount = "SELECT COUNT(DISTINCT i.id) FROM Item i ";
 			String ands = "";
 			String joins = "";
 			PaginateDTO paginate = new PaginateDTO();
@@ -70,6 +70,16 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 				
 			}
 
+			if(filtros.getTypes()!=null){
+				if(ands.equals("")){
+					ands = ands+"WHERE ";
+					ands = ands + "i.idTipo IN :types ";
+				}else{
+					ands = ands + "AND i.idTipo IN :types ";
+				}
+				
+			}
+			
 			if(filtros.getMinValue()!=null){
 				if(ands.equals("")){
 					ands = ands+"WHERE ";
@@ -96,6 +106,11 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 			TypedQuery<Item> namedQuery = this.em.createQuery(HQL, Item.class);
 			TypedQuery<Long> namedQueryCount = this.em.createQuery(HQLCount, Long.class);
 
+			if(filtros.getTypes()!=null){
+				namedQuery.setParameter("types",filtros.getTypes());
+				namedQueryCount.setParameter("types",filtros.getTypes());
+			}
+			
 			if(filtros.getName()!=null && !filtros.getName().trim().equals("")){
 				namedQuery.setParameter("nombre","%"+filtros.getName()+"%");
 				namedQueryCount.setParameter("nombre","%"+filtros.getName()+"%");

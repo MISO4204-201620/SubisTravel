@@ -66,4 +66,28 @@
 				  AND t.estado    =  :estado]]> 
         </query>
 	</named-query>
+	
+	
+	
+	<named-query name="usuario.byEmail">
+		<description>Return a user by his email</description>
+		<query>
+			<![CDATA[SELECT u FROM Usuario u
+				JOIN FETCH u.entidad  
+				WHERE u.email = :email 
+				AND u.estado = 'ACTIVO']]> 
+        </query>
+	</named-query>
+	
+	<named-query name="usuario.bySocialId">
+		<description>Return a user by social id</description>
+		<query>
+			<![CDATA[SELECT u FROM Usuario u
+				JOIN FETCH u.entidad  
+				JOIN u.redesSocialesUsuarios rs  
+				WHERE rs.identificador = :socialId 
+				AND u.estado = 'ACTIVO']]> 
+        </query>
+	</named-query>
+	
 </entity-mappings>
