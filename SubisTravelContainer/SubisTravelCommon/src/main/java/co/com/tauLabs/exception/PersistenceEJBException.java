@@ -17,6 +17,7 @@ public class PersistenceEJBException extends RuntimeException  {
 	
 	public PersistenceEJBException(String message){
 		super(message);
+		System.out.println(message);
 		logger.error(message);
 	}
 	

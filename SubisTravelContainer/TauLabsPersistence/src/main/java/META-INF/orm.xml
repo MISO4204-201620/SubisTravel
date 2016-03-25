@@ -21,7 +21,8 @@
 		<description>Return a list of qualifications by a Item id</description>
 		<query>
 			<![CDATA[SELECT c FROM Calificacion c 
-				WHERE c.idItem = :idItem]]> 
+				WHERE c.idItem = :idItem
+				ORDER by c.fecha desc]]> 
         </query>
 	</named-query>
 	<named-query name="calificaciones.byCatalogo">
@@ -67,7 +68,38 @@
         </query>
 	</named-query>
 	
+	<named-query name="transacciones.getAllTransaction">
+		<description>Return all  Transactions</description>
+		<query>
+			<![CDATA[SELECT t FROM Transaccion t]]> 
+        </query>
+	</named-query>
 	
+	
+	<named-query name="transacciones.enCarritoPorEntidad">
+		<description>Return a list of transacctions that are on shopping car and where added from a entity</description>
+		<query>
+			<![CDATA[SELECT t FROM Transaccion t 
+			WHERE t.estado IN ('Carrito','Procesada erronea') 
+			AND t.idUsuario = :idEntidad]]> 
+        </query>
+	</named-query>
+	
+	<named-query name="transacciones.porIds">
+		<description>Return a list of transacctions finded by ids</description>
+		<query>
+			<![CDATA[SELECT t FROM Transaccion t 
+			WHERE t.id IN :idsTransacciones]]> 
+        </query>
+	</named-query>
+	
+	<named-query name="transacciones.porEntidad">
+		<description>Return a list of transacctions by entity id</description>
+		<query>
+			<![CDATA[SELECT t FROM Transaccion t 
+			WHERE t.idUsuario = :idEntidad]]> 
+        </query>
+	</named-query>	
 	
 	<named-query name="usuario.byEmail">
 		<description>Return a user by his email</description>
@@ -87,6 +119,14 @@
 				JOIN u.redesSocialesUsuarios rs  
 				WHERE rs.identificador = :socialId 
 				AND u.estado = 'ACTIVO']]> 
+        </query>
+	</named-query>
+	
+	<named-query name="entidades.byEstado">
+		<description>Return a list of entities by a state </description>
+		<query>
+			<![CDATA[SELECT e FROM Entidad e 
+				WHERE e.estado = :estado]]> 
         </query>
 	</named-query>
 	

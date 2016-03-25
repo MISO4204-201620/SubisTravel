@@ -51,8 +51,14 @@ public class UsuarioService implements IUsuarioService {
 			SessionClientDTO sessionClient = usuarioDao.accederConSocialId(socialLoginDTO.getSocialId());
 			if(sessionClient!=null){
 				Entidad entidad = entidadDao.obtenerPorId(sessionClient.getIdEntity());
-				if(entidad.getImagenPrincipal()==null || entidad.getImagenPrincipal().equals("")){
+				boolean cambios = false;
+				if(entidad.getImagenPrincipal()==null || entidad.getImagenPrincipal().equals("") || !entidad.getImagenPrincipal().equals(socialLoginDTO.getPicture())){
 					entidad.setImagenPrincipal(socialLoginDTO.getPicture());
+				}
+				if(!entidad.getNombre().equals(socialLoginDTO.getName())){
+					entidad.setNombre(socialLoginDTO.getName());
+				}
+				if(cambios){
 					entidadDao.modificar(entidad);
 				}
 			}
