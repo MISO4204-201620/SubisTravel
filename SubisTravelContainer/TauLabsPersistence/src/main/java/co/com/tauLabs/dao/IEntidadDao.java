@@ -21,4 +21,5 @@ public interface IEntidadDao extends IGenericDao<Entidad, Long> {
 	List<Entidad> obtenerEntidadesPorTipo(Long idTipo) throws PersistenceException;
 
 	List<Entidad> obtenerEntidadesPorEstado(String estado) throws PersistenceException;
+
 }

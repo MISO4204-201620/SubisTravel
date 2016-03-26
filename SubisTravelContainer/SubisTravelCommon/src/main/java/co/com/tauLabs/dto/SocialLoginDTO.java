@@ -9,6 +9,7 @@ public class SocialLoginDTO implements Serializable {
 	private String socialId;
 	private String picture;
 	private String name;
+	private String provider;
 
 	public String getSocialId() {
 		return socialId;
@@ -32,6 +33,14 @@ public class SocialLoginDTO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
 	}
 	
 }

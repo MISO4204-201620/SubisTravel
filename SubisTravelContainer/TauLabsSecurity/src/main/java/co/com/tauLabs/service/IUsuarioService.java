@@ -13,4 +13,5 @@ public interface IUsuarioService {
 	SessionClientDTO validarLogin(LoginDTO loginDTO)  throws ServiceEJBException;
 	
 	SessionClientDTO accederConSocialId(SocialLoginDTO socialLoginDTO)  throws ServiceEJBException;
+	
 }

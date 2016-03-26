@@ -63,6 +63,7 @@ public abstract class GenericDao<T,ID> implements IGenericDao<T,ID>, Serializabl
 		logger.debug("Creando la entidad en la base de datos");
 		try {
 			this.em.persist(entidad);
+			this.em.flush();
 			return entidad;
 		} catch (RuntimeException e) {
 			throw new Exception("Error almacenando la informacion de la entidad", e);

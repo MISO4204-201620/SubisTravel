@@ -125,4 +125,6 @@ public class EntidadDao extends GenericDao<Entidad, Long>  implements IEntidadDa
 	 	}
 		
 	}
+
 }
+

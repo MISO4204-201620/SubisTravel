@@ -1,6 +1,8 @@
 package co.com.tauLabs.service.impl;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,24 +26,9 @@ public class UsuarioService implements IUsuarioService {
 	@Inject private IEntidadDao entidadDao;
 
 	final static Logger logger = Logger.getLogger(UsuarioService.class);
-	
+
 	@Override
-	public SessionClientDTO validarLogin(LoginDTO loginDTO) throws ServiceEJBException {
-		logger.debug("CS iniciando metodo validarLogin()");
-		try{
-			if(loginDTO==null) throw new Exception("El objeto de logueo es nulo");
-			if(loginDTO.getEmail()==null) throw new Exception("El correo ingresado es nulo");
-			if(loginDTO.getPassword()==null) throw new Exception("El password ingresado es nulo");
-	
-			return usuarioDao.validarLogin(loginDTO);
-		}catch(PersistenceEJBException e){
-			throw new ServiceEJBException(e.getMessage());
-		}catch(Exception e){
-			throw new ServiceEJBException("CS Ha ocurrido un error guardando la calificacion, causa: "+e.getMessage());
-		}
-	}
-	
-	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public SessionClientDTO accederConSocialId(SocialLoginDTO socialLoginDTO)  throws ServiceEJBException{
 		logger.debug("CS iniciando metodo accederConSocialId()");
 		try{
@@ -49,6 +36,7 @@ public class UsuarioService implements IUsuarioService {
 			if(socialLoginDTO.getSocialId()==null) throw new Exception("El id social es nulo");
 			
 			SessionClientDTO sessionClient = usuarioDao.accederConSocialId(socialLoginDTO.getSocialId());
+			
 			if(sessionClient!=null){
 				Entidad entidad = entidadDao.obtenerPorId(sessionClient.getIdEntity());
 				boolean cambios = false;
@@ -61,9 +49,26 @@ public class UsuarioService implements IUsuarioService {
 				if(cambios){
 					entidadDao.modificar(entidad);
 				}
+			}else{
+				sessionClient = usuarioDao.altaConSocialId(socialLoginDTO);
 			}
-			
 			return sessionClient;
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error guardando la calificacion, causa: "+e.getMessage());
+		}
+	}
+
+	@Override
+	public SessionClientDTO validarLogin(LoginDTO loginDTO) throws ServiceEJBException {
+		logger.debug("CS iniciando metodo validarLogin()");
+		try{
+			if(loginDTO==null) throw new Exception("El objeto de logueo es nulo");
+			if(loginDTO.getEmail()==null) throw new Exception("El correo ingresado es nulo");
+			if(loginDTO.getPassword()==null) throw new Exception("El password ingresado es nulo");
+	
+			return usuarioDao.validarLogin(loginDTO);
 		}catch(PersistenceEJBException e){
 			throw new ServiceEJBException(e.getMessage());
 		}catch(Exception e){
