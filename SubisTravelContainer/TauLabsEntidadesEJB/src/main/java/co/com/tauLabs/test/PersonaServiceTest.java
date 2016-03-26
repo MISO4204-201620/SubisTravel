@@ -7,7 +7,6 @@ import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.service.IEntidadService;

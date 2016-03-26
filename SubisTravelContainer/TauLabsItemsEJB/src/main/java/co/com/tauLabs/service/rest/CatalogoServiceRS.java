@@ -6,16 +6,13 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.jboss.logging.Logger;
 
 import co.com.tauLabs.model.Catalogo;
-import co.com.tauLabs.model.Contenido;
 import co.com.tauLabs.service.ICatalogoService;
-import co.com.tauLabs.service.IContenidoService;
 
 @Path("/catalogos")
 @RequestScoped

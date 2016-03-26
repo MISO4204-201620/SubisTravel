@@ -8,9 +8,7 @@
 		<version>1.0</version>
 	</parent>
 
-	<groupId>co.com.tauLabs</groupId>
 	<artifactId>SubisTravelEstandarEAR</artifactId>
-	<version>1.0</version>
 	<packaging>ear</packaging>
 
 	<name>SubisTravelEstandarEAR</name>

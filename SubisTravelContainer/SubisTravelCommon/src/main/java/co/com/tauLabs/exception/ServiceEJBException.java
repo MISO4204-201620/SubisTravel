@@ -17,6 +17,7 @@ public class ServiceEJBException extends RuntimeException {
 
 	public ServiceEJBException(String message) {
 		super(message);
+		System.out.println(message);
 		logger.error(message);
 	}
 

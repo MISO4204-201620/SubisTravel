@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import co.com.tauLabs.dao.IEntidadDao;
 import co.com.tauLabs.dao.IGenericDao;
+import co.com.tauLabs.dao.IUsuarioDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.enums.EntidadEstadoEnum;
@@ -16,6 +17,7 @@ import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ServiceEJBException;
 import co.com.tauLabs.exception.ValidationException;
 import co.com.tauLabs.model.Entidad;
+import co.com.tauLabs.model.Usuario;
 import co.com.tauLabs.service.IEntidadService;
 
 @Stateless
@@ -25,6 +27,7 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 	private static final long serialVersionUID = 1L;
 
 	@Inject private IEntidadDao entidadDao;
+	@Inject private IUsuarioDao usuarioDao;
 
 	public EntidadService() {
 		
@@ -34,6 +37,19 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 	@PostConstruct
 	public void entidadService(){
 		super.genericDao = (IGenericDao) entidadDao;
+	}
+	
+	@Override
+	public List<Usuario> clientesPorEntidad(Long idEntidad) throws ServiceEJBException {
+		logger.debug("CS iniciando metodo clientesPorEntidad()");
+		try{
+			if(idEntidad==null) throw new Exception("El identificador de la entidad es nulo");
+			return usuarioDao.clientesPorEntidad(idEntidad);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error consultando los clientes de una entidad, causa: "+e.getMessage());
+		}
 	}
 	
 	@Override

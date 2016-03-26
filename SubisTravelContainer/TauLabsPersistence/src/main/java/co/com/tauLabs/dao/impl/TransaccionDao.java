@@ -103,16 +103,36 @@ public class TransaccionDao extends GenericDao<Transaccion, Long> implements ITr
 	@Override
 	public List<Transaccion> getAllTransaction() throws PersistenceEJBException {
 		try {
-			TypedQuery<Transaccion> tQuery = em.createNamedQuery("transacciones.getAllTransaction",
-					Transaccion.class);
+			TypedQuery<Transaccion> tQuery = em.createNamedQuery("transacciones.getAllTransaction",	Transaccion.class);
 			List<Transaccion> transacciones = tQuery.getResultList();
 			return transacciones;
 		} catch (Exception e) {
-			throw new PersistenceEJBException(
-					"CP Ha ocurrido un error al cargar los items en el carrito de una entidad, causa: "
-							+ e.getMessage());
+			throw new PersistenceEJBException("CP Ha ocurrido un error al cargar los items en el carrito de una entidad, causa: "+ e.getMessage());
 		}
-		// return null;
 	}
 
+	@Override
+	public List<Transaccion> obtenerCompras(Long idUsuario) throws PersistenceEJBException {
+		try {
+			TypedQuery<Transaccion> tQuery = em.createNamedQuery("transacciones.shoppingByEntity",	Transaccion.class);
+			tQuery.setParameter("idUsuario", idUsuario);
+			return tQuery.getResultList();
+		} catch (Exception e) {
+			throw new PersistenceEJBException("CP Ha ocurrido un error al consultar las compras de una entidad, causa: "+ e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Transaccion> obtenerVentas(Long idEntidad) throws PersistenceEJBException {
+		try {
+			TypedQuery<Transaccion> tQuery = em.createNamedQuery("transacciones.salesByEntity",	Transaccion.class);
+			tQuery.setParameter("idEntidad", idEntidad);
+			return tQuery.getResultList();
+		} catch (Exception e) {
+			throw new PersistenceEJBException("CP Ha ocurrido un error al consultar las ventas de una entidad, causa: "+ e.getMessage());
+		}
+	}
+
+	
+	
 }

@@ -21,6 +21,7 @@ import org.jboss.logging.Logger;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.model.Entidad;
+import co.com.tauLabs.model.Usuario;
 import co.com.tauLabs.service.IEntidadService;
 
 @Path("/entidades")
@@ -97,6 +98,18 @@ public class EntidadServiceRS{
 		}
 		catch(Exception e){
 			return Response.status(404).build();
+		}
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("clientesPorEntidad/{idEntidad}")
+	public List<Usuario> obtenerClientesPorEntidad(@PathParam("idEntidad") int idEntidad){
+		logger.info("obtenerEntidadesPorTipo Services REST");
+		try {
+			return entidadService.clientesPorEntidad(Integer.valueOf(idEntidad).longValue());
+		} catch (Exception e) {
+			return null;
 		}
 	}
 

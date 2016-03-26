@@ -8,10 +8,13 @@ import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.exception.ServiceEJBException;
 import co.com.tauLabs.model.Entidad;
+import co.com.tauLabs.model.Usuario;
 
 @Local
 public interface IEntidadService extends IGenericService<Entidad, Long> {
 	
+	List<Usuario> clientesPorEntidad(Long idEntidad) throws ServiceEJBException;
+	 
 	PaginateDTO filtrados(FilterDTO filtros) throws ServiceEJBException;
 	
 	List<Entidad> obtenerEntidadesPorTipo(Long idTipo) throws Exception;

@@ -20,6 +20,7 @@ public enum QueryName {
 	CATALOGOS_ALL("catalogos.all"),
 	USUARIO_BY_EMAIL("usuario.byEmail"),
 	USUARIO_BY_SOCIAL_ID("usuario.bySocialId"),
+	USUARIO_CLIENTS_BY_ENTITY("usuario.clientsByEntity"),
 	PREGUNTAS_BY_ITEM("preguntas.byItem"),
 	PREGUNTAS_BY_CATALOG("preguntas.byCatalogo"),
 	PREGUNTAS_BY_PREGUNTA_PADRE("preguntas.byPreguntaPadre"),

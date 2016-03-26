@@ -112,6 +112,26 @@
         </query>
 	</named-query>	
 	
+	<named-query name="transacciones.salesByEntity">
+		<description>Return a list of sales by entity</description>
+		<query>
+			<![CDATA[SELECT t FROM Transaccion t 
+				JOIN t.item i
+				JOIN i.entidad e 
+				WHERE e.id = :idEntidad
+				AND t.estado = 'Completada']]> 
+        </query>
+	</named-query>	
+	
+	<named-query name="transacciones.shoppingByEntity">
+		<description>Return a list of shopping by entity</description>
+		<query>
+			<![CDATA[SELECT t FROM Transaccion t 
+				WHERE t.idUsuario = :idUsuario 
+				AND t.estado = 'Completada']]> 
+        </query>
+	</named-query>	
+	
 	<named-query name="usuario.byEmail">
 		<description>Return a user by his email</description>
 		<query>
@@ -130,6 +150,18 @@
 				JOIN u.redesSocialesUsuarios rs  
 				WHERE rs.identificador = :socialId 
 				AND u.estado = 'ACTIVO']]> 
+        </query>
+	</named-query>
+	
+	<named-query name="usuario.clientsByEntity">
+		<description>Return a list of client by a determined entity</description>
+		<query>
+			<![CDATA[SELECT DISTINCT uc FROM Usuario uc
+				JOIN FETCH uc.entidad 
+				JOIN uc.transacciones t 
+				JOIN t.item i  
+				JOIN i.entidad ep  
+				WHERE ep.id = :idEntidad]]> 
         </query>
 	</named-query>
 	

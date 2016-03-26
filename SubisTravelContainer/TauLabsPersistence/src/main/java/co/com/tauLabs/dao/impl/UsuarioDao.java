@@ -1,6 +1,7 @@
 package co.com.tauLabs.dao.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
@@ -22,6 +23,24 @@ public class UsuarioDao extends GenericDao<Usuario, Long>  implements IUsuarioDa
 
     }
 
+
+
+	@Override
+	public List<Usuario> clientesPorEntidad(Long idEntidad) throws ServiceEJBException {
+		logger.debug("CP iniciando metodo clientesPorEntidad()");
+		try{
+			if(idEntidad==null) throw new Exception("El identificador de la entidad es nulo");
+			
+			TypedQuery<Usuario> namedQuery = this.em.createNamedQuery(QueryName.USUARIO_CLIENTS_BY_ENTITY.getValue(), Usuario.class);
+			namedQuery.setParameter("idEntidad",idEntidad);
+			return namedQuery.getResultList();
+		}catch(NoResultException e){
+			return null;
+		}catch(Exception e){
+			throw new ServiceEJBException("CP Error consultando contenidos de un item, causa: "+e.getMessage());
+		}
+	}
+    
 	@Override
 	public SessionClientDTO validarLogin(LoginDTO loginDTO) throws ServiceEJBException {
 		logger.debug("CP iniciando metodo validarLogin()");

@@ -20,4 +20,8 @@ public interface ITransaccionService {
 
 	List<Transaccion> getAllTransactions() throws ServiceEJBException;
 	
+	List<Transaccion> obtenerCompras(Long idUsuario) throws ServiceEJBException;
+	
+	List<Transaccion> obtenerVentas(Long idEntidad) throws ServiceEJBException;
+	
 }

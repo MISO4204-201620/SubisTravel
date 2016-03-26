@@ -6,8 +6,6 @@ import javax.ejb.Local;
 
 import co.com.tauLabs.exception.ServiceEJBException;
 import co.com.tauLabs.model.Catalogo;
-import co.com.tauLabs.model.Clasificacion;
-import co.com.tauLabs.model.Contenido;
 
 @Local
 public interface ICatalogoService {

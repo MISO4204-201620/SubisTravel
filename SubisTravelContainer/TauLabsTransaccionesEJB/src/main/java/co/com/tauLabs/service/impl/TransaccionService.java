@@ -81,5 +81,29 @@ public class TransaccionService implements ITransaccionService {
 		}
 	
 	}
+
+	@Override
+	public List<Transaccion> obtenerCompras(Long idUsuario) throws ServiceEJBException {
+		try{
+			if(idUsuario==null) throw new Exception("El identificador de la entidad es nulu");
+			return transaccionDao.obtenerCompras(idUsuario);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al las compras de una entidad, causa: "+e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Transaccion> obtenerVentas(Long idEntidad) throws ServiceEJBException {
+		try{
+			if(idEntidad==null) throw new Exception("El identificador de la entidad es nulu");
+			return transaccionDao.obtenerVentas(idEntidad);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al consultar las ventas de una entidad, causa: "+e.getMessage());
+		}
+	}
 	
 }

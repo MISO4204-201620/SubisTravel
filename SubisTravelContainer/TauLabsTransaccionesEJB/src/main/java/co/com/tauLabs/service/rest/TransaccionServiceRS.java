@@ -85,7 +85,7 @@ public class TransaccionServiceRS{
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -99,6 +99,29 @@ public class TransaccionServiceRS{
 			return null;
 		}
 	}
-
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/compras/{idUsuario}")
+	public List<Transaccion> obtenerCompras(@PathParam("idUsuario") int idUsuario){
+		logger.info("RS obtenerCompras");
+		try {
+			return transaccionService.obtenerCompras(Integer.valueOf(idUsuario).longValue());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/ventas/{idEntidad}")
+	public List<Transaccion> obtenerVentas(@PathParam("idEntidad") int idEntidad){
+		logger.info("RS obtenerVentas");
+		try {
+			return transaccionService.obtenerVentas(Integer.valueOf(idEntidad).longValue());
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 }
