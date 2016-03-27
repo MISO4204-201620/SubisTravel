@@ -42,6 +42,11 @@ public class Clasificacion implements Serializable, IEntity<Long> {
 	public Clasificacion() {
 	}
 
+	public Clasificacion(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public Long getId() {
 		return this.id;
 	}

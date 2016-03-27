@@ -75,7 +75,7 @@ public class ItemService implements IItemService,Serializable {
 	@Override
 	public Item crearItem(Item item) throws ServiceEJBException {
 		try{
-			item.setEstado(ItemEstadoEnum.CREADO.getValue());
+			item.setEstado(ItemEstadoEnum.PUBLICADO.getValue());
 			return itemDao.guardar(item);
 		}catch(Exception e){
 			throw new ServiceEJBException("CS Ha ocurrido un error al crear el îtem, causa: "+e.getMessage());

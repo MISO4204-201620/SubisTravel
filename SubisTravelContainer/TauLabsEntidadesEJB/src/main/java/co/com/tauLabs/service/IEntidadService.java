@@ -13,6 +13,8 @@ import co.com.tauLabs.model.Usuario;
 @Local
 public interface IEntidadService extends IGenericService<Entidad, Long> {
 	
+	Entidad agregarProveedor(Entidad entidad) throws ServiceEJBException;
+	
 	List<Usuario> clientesPorEntidad(Long idEntidad) throws ServiceEJBException;
 	 
 	PaginateDTO filtrados(FilterDTO filtros) throws ServiceEJBException;

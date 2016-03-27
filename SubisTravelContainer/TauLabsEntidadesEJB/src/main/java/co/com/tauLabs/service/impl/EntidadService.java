@@ -40,6 +40,20 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 	}
 	
 	@Override
+	public Entidad agregarProveedor(Entidad entidad) throws ServiceEJBException {
+		try{
+			Usuario usuario = entidad.getUsuarios().get(0);
+			entidad.setUsuarios(null);
+			entidadDao.guardar(entidad);
+			usuario.setIdEntidad(entidad.getId());
+			usuarioDao.guardar(usuario);
+			return entidad;
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al agregar el proveedor de servicios, causa: "+e.getMessage());
+		}
+	}
+	
+	@Override
 	public List<Usuario> clientesPorEntidad(Long idEntidad) throws ServiceEJBException {
 		logger.debug("CS iniciando metodo clientesPorEntidad()");
 		try{

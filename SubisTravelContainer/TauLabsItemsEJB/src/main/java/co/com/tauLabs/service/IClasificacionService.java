@@ -15,5 +15,13 @@ public interface IClasificacionService {
 	 * @return List of contents by a defined item
 	 */
 	List<Clasificacion> listar() throws ServiceEJBException;
+	
+	Clasificacion guardar(Clasificacion clasificacion) throws ServiceEJBException;
+	
+	Clasificacion modificar(Clasificacion clasificacion) throws ServiceEJBException;
+	
+	Clasificacion obtenerPorId(Long idClasificacion) throws ServiceEJBException;
+	
+	void eliminar(Long idClasificacion) throws ServiceEJBException;
 
 }

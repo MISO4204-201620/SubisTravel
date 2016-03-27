@@ -40,6 +40,58 @@ public class ClasificacionService implements IClasificacionService,Serializable 
 			throw new ServiceEJBException("CS Ha ocurrido un error consultando las clasificaciones, causa: "+e.getMessage());
 		}
 	}
+
+	@Override
+	public Clasificacion guardar(Clasificacion clasificacion) throws ServiceEJBException {
+		logger.debug("CS iniciando servicio guardar");
+		try{
+			clasificacion = clasificacionDao.guardar(clasificacion);
+			return clasificacion;
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al guardar la clasificacion, causa: "+e.getMessage());
+		}
+	}
+
+	@Override
+	public Clasificacion modificar(Clasificacion clasificacion) throws ServiceEJBException {
+		logger.debug("CS iniciando servicio modificar");
+		try{
+			clasificacionDao.modificar(clasificacion);
+			return clasificacion;
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al modificar la clasificacion, causa: "+e.getMessage());
+		}
+	}
+
+	@Override
+	public Clasificacion obtenerPorId(Long idClasificacion) throws ServiceEJBException {
+		logger.debug("CS iniciando servicio obtenerPorId");
+		try{
+			return clasificacionDao.obtenerPorId(idClasificacion);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al consultar una clasificación por su id, causa: "+e.getMessage());
+		}
+	}
+
+	@Override
+	public void eliminar(Long idClasificacion) throws ServiceEJBException {
+		logger.debug("CS iniciando servicio eliminar");
+		try{
+			Clasificacion clasificacion = clasificacionDao.obtenerPorId(idClasificacion);
+			clasificacionDao.eliminar(clasificacion);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al eliminar la clasificación, causa: "+e.getMessage());
+		}
+		
+	}
 	
 
 	

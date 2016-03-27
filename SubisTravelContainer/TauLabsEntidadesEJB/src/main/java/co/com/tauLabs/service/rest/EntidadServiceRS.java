@@ -69,21 +69,27 @@ public class EntidadServiceRS{
 		}
 	}
 	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("agregarProveedor")
+	public Response agregarProveedor(Entidad personaModificada){
+		try{
+			entidadService.agregarProveedor(personaModificada);
+			return Response.ok().entity(personaModificada).build();
+		}catch(Exception e){
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("{id}")
-	public Response modificarPersona(@PathParam("id") int id, Entidad personaModificada){
+	@Path("actualizar")
+	public Response modificarPersona(Entidad personaModificada){
 		try{
-			Entidad persona = entidadService.obtenerPorId((long) id);
-			if(persona != null){
-				entidadService.modificar(personaModificada);
-				return Response.ok().entity(personaModificada).build();
-			}
-			else{
-				return Response.status(Status.NOT_FOUND).build();
-			}
-			
+			entidadService.modificar(personaModificada);
+			return Response.ok().entity(personaModificada).build();
 		}catch(Exception e){
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}

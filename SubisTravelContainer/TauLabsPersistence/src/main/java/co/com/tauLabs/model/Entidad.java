@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name="ENTIDAD", schema="SubisDB")
@@ -59,8 +61,7 @@ public class Entidad implements Serializable, IEntity<Long> {
 	@JoinColumn(name="id_tipo",insertable = false, updatable = false)
 	private Tipo tipo;
 
-	@JsonIgnore
-	@XmlTransient
+	@JsonInclude(value=Include.NON_EMPTY)
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="entidad")
 	private List<Usuario> usuarios;
 
