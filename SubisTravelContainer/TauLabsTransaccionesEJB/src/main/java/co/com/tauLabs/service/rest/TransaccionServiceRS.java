@@ -123,5 +123,17 @@ public class TransaccionServiceRS{
 			return null;
 		}
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/cantidadEnCarrito/{idEntidad}")
+	public Long cantidadEnCarritoPorEntidad(@PathParam("idEntidad") int idEntidad){
+		logger.info("cantidadDeItemsEnCarrito");
+		try {
+			return transaccionService.cantidadEnCarritoPorEntidad(Integer.valueOf(idEntidad).longValue());
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 }

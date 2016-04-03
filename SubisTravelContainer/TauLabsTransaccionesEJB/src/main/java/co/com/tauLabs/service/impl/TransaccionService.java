@@ -106,4 +106,16 @@ public class TransaccionService implements ITransaccionService {
 		}
 	}
 	
+	@Override
+	public Long cantidadEnCarritoPorEntidad(Long idEntidad) throws ServiceEJBException {
+		try{
+			if(idEntidad==null) throw new Exception("El identificador de la entidad es null");
+			return transaccionDao.cantidadEnCarritoPorEntidad(idEntidad);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al consultar los items de un carrito de compras, causa: "+e.getMessage());
+		}
+	}
+
 }

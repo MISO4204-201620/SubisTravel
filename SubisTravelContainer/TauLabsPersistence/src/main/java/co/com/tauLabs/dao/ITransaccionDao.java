@@ -21,4 +21,6 @@ public interface ITransaccionDao extends IGenericDao<Transaccion, Long> {
 	List<Transaccion> obtenerCompras(Long idUsuario) throws PersistenceEJBException;
 	
 	List<Transaccion> obtenerVentas(Long idEntidad) throws PersistenceEJBException;
+	
+	Long cantidadEnCarritoPorEntidad(Long idEntidad) throws PersistenceEJBException;
 }

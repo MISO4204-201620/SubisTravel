@@ -182,4 +182,13 @@
 				WHERE ip.id = :idItemPaquete]]> 
         </query>
 	</named-query>
+	
+	<named-query name="transacciones.cantidadEnCarritoPorEntidadPorEstado">
+		<description>Return a list of transacctions that are on shopping car and where added from a entity</description>
+		<query>
+			<![CDATA[SELECT count(t) FROM Transaccion t 
+			WHERE t.estado = :estado 
+			AND t.idUsuario = :idEntidad]]> 
+        </query>
+	</named-query>
 </entity-mappings>

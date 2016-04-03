@@ -24,4 +24,6 @@ public interface ITransaccionService {
 	
 	List<Transaccion> obtenerVentas(Long idEntidad) throws ServiceEJBException;
 	
+	Long cantidadEnCarritoPorEntidad(Long idEntidad) throws ServiceEJBException;
+	
 }

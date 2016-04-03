@@ -133,6 +133,20 @@ public class TransaccionDao extends GenericDao<Transaccion, Long> implements ITr
 		}
 	}
 
-	
+	@Override
+	public Long cantidadEnCarritoPorEntidad(Long idEntidad) throws PersistenceEJBException {
+		try {
+			TypedQuery<Long> tQuery = em.createNamedQuery("transacciones.cantidadEnCarritoPorEntidadPorEstado",
+					Long.class);
+			tQuery.setParameter("estado", TransaccionEstadoEnum.CARRITO.getValue());
+			tQuery.setParameter("idEntidad", idEntidad);
+			Long transacciones = tQuery.getSingleResult();
+			return transacciones;
+		} catch (Exception e) {
+			throw new PersistenceEJBException(
+					"CP Ha ocurrido un error al cargar la cantidad de items en el carrito de una entidad, causa: "
+							+ e.getMessage());
+		}
+	}
 	
 }
