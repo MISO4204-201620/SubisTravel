@@ -173,4 +173,13 @@
         </query>
 	</named-query>
 
+	<named-query name="paquete.byItemPaquete">
+		<description>Return a list of package by a determined item package</description>
+		<query>
+			<![CDATA[SELECT DISTINCT p FROM Paquete p
+				JOIN FETCH p.itemPaquete ip
+				JOIN FETCH p.itemIncluido ii  
+				WHERE ip.id = :idItemPaquete]]> 
+        </query>
+	</named-query>
 </entity-mappings>

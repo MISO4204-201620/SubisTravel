@@ -25,4 +25,6 @@ public interface IItemService {
 	Item publicarItem(Long id) throws ServiceEJBException;
 	
 	Item actualizarItem(Long id, Item item) throws ServiceEJBException;
+	
+	
 }

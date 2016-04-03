@@ -104,7 +104,18 @@ public class Item implements Serializable, IEntity<Long> {
 	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item")
 	private List<Transaccion> transacciones;
+	
+	@JsonIgnore
+	@XmlTransient
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="itemPaquete")
+	private List<Paquete> paquetesPadre;
 
+	@JsonIgnore
+	@XmlTransient
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="itemIncluido")
+	private List<Paquete> paquetesIncluido;
+	
+	
 	public Item() {
 	}
 
@@ -266,5 +277,21 @@ public class Item implements Serializable, IEntity<Long> {
 
 	public void setDescripcionCantidad(String descripcionCantidad) {
 		this.descripcionCantidad = descripcionCantidad;
+	}
+
+	public List<Paquete> getPaquetesPadre() {
+		return paquetesPadre;
+	}
+
+	public void setPaquetesPadre(List<Paquete> paquetesPadre) {
+		this.paquetesPadre = paquetesPadre;
+	}
+
+	public List<Paquete> getPaquetesIncluido() {
+		return paquetesIncluido;
+	}
+
+	public void setPaquetesIncluido(List<Paquete> paquetesIncluido) {
+		this.paquetesIncluido = paquetesIncluido;
 	}
 }

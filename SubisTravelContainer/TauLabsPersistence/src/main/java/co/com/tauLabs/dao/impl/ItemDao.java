@@ -177,14 +177,14 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
     
 	@Override
 	public Item obtenerItemPorId(Long id) throws PersistenceEJBException {
-		logger.debug("CP iniciando metodo obtenerEntidadesPorTipo()");
+		logger.debug("CP iniciando metodo obtenerItemPorId()");
 		try{
 	    	
     		if(id==null)throw new Exception("El identificador es nulo");
     		return (Item) em.find(Item.class,id);
     	}catch(Exception e){
-    		logger.error("CP Erro consultando Entidades por tipo, causa: "+e.getMessage());
-    		throw new PersistenceException("CP Error ejecutnao el metodo obtenerEntidadesPorTipo,causa: "+e.getMessage());
+    		logger.error("CP Erro consultando Item por id, causa: "+e.getMessage());
+    		throw new PersistenceException("CP Error ejecutando el metodo obtenerItemPorId,causa: "+e.getMessage());
     	}
 
 	}

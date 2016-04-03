@@ -27,7 +27,7 @@ public class ItemServiceRS{
 	final static Logger logger = Logger.getLogger(ItemServiceRS.class);
 	
 	@EJB private IItemService itemService;
-	
+
 	public ItemServiceRS() {}
 
 	@POST
@@ -104,4 +104,6 @@ public class ItemServiceRS{
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	
 }
