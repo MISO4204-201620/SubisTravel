@@ -3,6 +3,7 @@ package co.com.tauLabs.dto;
 import java.io.Serializable;
 import java.util.List;
 
+
 public class FilterDTO implements	Serializable {
 
 	private static final long serialVersionUID = -3192090127016165648L;
@@ -12,6 +13,7 @@ public class FilterDTO implements	Serializable {
 	private Double minValue;
 	private Double maxValue;
 	private Long pages;
+	private String estado;
 
 	private List<String> types;
 	private List<String> providers;
@@ -64,6 +66,12 @@ public class FilterDTO implements	Serializable {
 	}
 	public void setTypes(List<String> types) {
 		this.types = types;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 }

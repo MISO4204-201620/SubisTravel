@@ -44,6 +44,8 @@ public class Item implements Serializable, IEntity<Long> {
 	private Double valor;
 	
 	private Float promedioCalificacion;
+	
+	private String descripcionCantidad;
 
 	@Column(name="id_clasificacion")
 	private Long idClasificacion;
@@ -256,5 +258,13 @@ public class Item implements Serializable, IEntity<Long> {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+
+	public String getDescripcionCantidad() {
+		return descripcionCantidad;
+	}
+
+	public void setDescripcionCantidad(String descripcionCantidad) {
+		this.descripcionCantidad = descripcionCantidad;
 	}
 }

@@ -5,6 +5,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -88,6 +89,19 @@ public class ItemServiceRS{
 			return itemService.publicarItem(id);
 		} catch (Exception e) {
 			return null;
+		}
+	}
+	
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("{id}/actualizar")
+	public Response actualizarItem(@PathParam("id") long id,Item item){
+		try{
+			itemService.actualizarItem(id, item);
+			return Response.ok().entity(item).build();
+		}catch(Exception e){
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 }

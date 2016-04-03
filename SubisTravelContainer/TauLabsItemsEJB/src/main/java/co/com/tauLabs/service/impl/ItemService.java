@@ -93,4 +93,46 @@ public class ItemService implements IItemService,Serializable {
 			throw new ServiceEJBException("CS Ha ocurrido un error al crear el îtem, causa: "+e.getMessage());
 		}
 	}
+	
+	@Override
+	public Item actualizarItem(Long id, Item item) throws ServiceEJBException {
+		try{
+			if(id==null) throw new Exception("El ID ingresado es nulo");
+			Item i = this.obtenerItemPorId(id);
+			if(i != null){
+
+				if( item.getDescripcion() != null && item.getDescripcion().length()>0 && item.getDescripcion()!=i.getDescripcion()){
+					i.setDescripcion(item.getDescripcion());
+				}
+				if( item.getIdTipo() != null && item.getIdTipo()>0 && item.getIdTipo()!=i.getIdTipo()){
+					i.setIdTipo(item.getIdTipo());
+				}
+				if( item.getIdClasificacion() != null && item.getIdClasificacion()>0 && item.getIdClasificacion()!=i.getIdClasificacion()){
+					i.setIdClasificacion(item.getIdClasificacion());
+				}
+				if( item.getNombre() != null  && item.getNombre()!=i.getNombre()){
+					i.setNombre(item.getNombre());
+				}
+				if( item.getValor() != null && item.getValor()!=i.getValor()){
+					i.setValor(item.getValor());
+				}
+				if( item.getImagen() != null  && item.getImagen()!=i.getImagen()){
+					i.setImagen(item.getImagen());
+				}
+				if( item.getEstado() != null && item.getEstado().length()>0 && item.getEstado()!=i.getEstado() && ( item.getEstado().equals(ItemEstadoEnum.PUBLICADO.getValue()) ||  item.getEstado().equals(ItemEstadoEnum.CREADO.getValue()) ||  item.getEstado().equals(ItemEstadoEnum.ELIMINADO.getValue()) ) ){
+					i.setEstado(item.getEstado());
+				}
+				if( item.getDescripcionCantidad() != null  && item.getDescripcionCantidad()!=i.getDescripcionCantidad()){
+					i.setDescripcionCantidad(item.getDescripcionCantidad());
+				}
+				itemDao.modificar(i);
+			}
+			else{
+				throw new Exception("No existe el item con el ID ingresado");
+			}
+			return item;
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error al modificar el îtem, causa: "+e.getMessage());
+		}
+	}
 }

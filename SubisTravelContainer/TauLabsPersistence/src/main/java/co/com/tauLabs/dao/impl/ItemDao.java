@@ -97,6 +97,15 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 					ands = ands + "AND i.valor <= :maxValue ";
 				}
 			}
+			
+			if(filtros.getEstado()!=null){
+				if(ands.equals("")){
+					ands = ands+"WHERE ";
+					ands = ands + "i.estado = :estado ";
+				}else{
+					ands = ands + "AND i.estado = :estado ";
+				}
+			}
 
 			HQL = HQL + joins + ands;
 			HQLCount = HQLCount + joins + ands;
@@ -134,6 +143,10 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 			if(filtros.getMaxValue()!=null){
 				namedQuery.setParameter("maxValue",filtros.getMaxValue());
 				namedQueryCount.setParameter("maxValue",filtros.getMaxValue());
+			}
+			if(filtros.getEstado()!=null){
+				namedQuery.setParameter("estado",filtros.getEstado());
+				namedQueryCount.setParameter("estado",filtros.getEstado());
 			}
 			
 			//Cantidad de registros
