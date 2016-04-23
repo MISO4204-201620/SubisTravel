@@ -54,7 +54,7 @@ public abstract class GenericDao<T,ID> implements IGenericDao<T,ID>, Serializabl
 		try {
 			return (T) em.find(claseEntidad,id);
 		} catch (Exception e) {
-			throw new Exception("Error eliminando entidad de bd", e);
+			throw new Exception("Error eliminando entidad de bd, causa: "+e.getMessage(), e);
 		}
 	}
     
@@ -66,7 +66,7 @@ public abstract class GenericDao<T,ID> implements IGenericDao<T,ID>, Serializabl
 			this.em.flush();
 			return entidad;
 		} catch (RuntimeException e) {
-			throw new Exception("Error almacenando la informacion de la entidad", e);
+			throw new Exception("Error almacenando la informacion de la entidad, causa: "+e.getMessage(), e);
 		}
 	}
     
@@ -78,8 +78,8 @@ public abstract class GenericDao<T,ID> implements IGenericDao<T,ID>, Serializabl
 			String jpql = "SELECT e FROM " + this.claseEntidad.getSimpleName() + " e ORDER BY e.id DESC";
 			Query query = this.em.createQuery(jpql);
 			return query.getResultList();
-		} catch (Exception re) {
-			throw new Exception("Error consultando todas las entidades", re);
+		} catch (Exception e) {
+			throw new Exception("Error consultando todas las entidades, causa: "+e.getMessage(), e);
 		}
 	}
     
@@ -89,7 +89,7 @@ public abstract class GenericDao<T,ID> implements IGenericDao<T,ID>, Serializabl
 		try {
 			this.em.merge(entidad);
 		} catch (Exception e) {
-			throw new Exception("Error almacenando la informacion de la entidad", e);
+			throw new Exception("Error almacenando la informacion de la entidad, causa: "+e.getMessage(), e);
 		}
 	}
     
