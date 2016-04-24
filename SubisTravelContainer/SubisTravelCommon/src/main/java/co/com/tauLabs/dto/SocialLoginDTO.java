@@ -10,6 +10,7 @@ public class SocialLoginDTO implements Serializable {
 	private String picture;
 	private String name;
 	private String provider;
+	private String email;
 
 	public String getSocialId() {
 		return socialId;
@@ -41,6 +42,14 @@ public class SocialLoginDTO implements Serializable {
 
 	public void setProvider(String provider) {
 		this.provider = provider;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

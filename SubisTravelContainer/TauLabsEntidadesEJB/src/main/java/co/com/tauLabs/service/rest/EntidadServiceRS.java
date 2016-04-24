@@ -20,6 +20,7 @@ import org.jboss.logging.Logger;
 
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
+import co.com.tauLabs.dto.UsuarioDTO;
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.model.Usuario;
 import co.com.tauLabs.service.IEntidadService;
@@ -73,10 +74,10 @@ public class EntidadServiceRS{
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("agregarProveedor")
-	public Response agregarProveedor(Entidad personaModificada){
+	public Response agregarProveedor(UsuarioDTO usuarioDTO){
 		try{
-			entidadService.agregarProveedor(personaModificada);
-			return Response.ok().entity(personaModificada).build();
+			Entidad entidad = entidadService.agregarProveedor(usuarioDTO);
+			return Response.ok().entity(entidad).build();
 		}catch(Exception e){
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}

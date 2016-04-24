@@ -101,10 +101,6 @@ public class UsuarioDao extends GenericDao<Usuario, Long>  implements IUsuarioDa
 			Entidad entidad = new Entidad();
 			entidad.setIdTipo(3L);
 			entidad.setNombre(socialLoginDTO.getName());
-			entidad.setIdentificacion("asdasd");
-			entidad.setEmail("asdasd");
-			entidad.setDireccion("aas");
-			entidad.setImagenPrincipal("asdsad");
 			em.persist(entidad);
 			em.flush();
 			//Se crea un usuario
