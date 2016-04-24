@@ -42,6 +42,16 @@ public class Consulta implements Serializable, IEntity<Long> {
 	@JoinColumn(name="id_item",insertable=false,updatable=false)
 	private Item item;
 
+	@Column(name="id_busqueda")
+	private Long idBusqueda;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_busqueda",insertable=false,updatable=false)
+	private Busqueda busqueda;
+	
+	@Column(name="tipo_consulta")
+	private String tipoConsulta;
+	
 	public Consulta() {
 	}
 
@@ -91,6 +101,30 @@ public class Consulta implements Serializable, IEntity<Long> {
 
 	public void setIdItem(Long idItem) {
 		this.idItem = idItem;
+	}
+
+	public Long getIdBusqueda() {
+		return idBusqueda;
+	}
+
+	public void setIdBusqueda(Long idBusqueda) {
+		this.idBusqueda = idBusqueda;
+	}
+
+	public Busqueda getBusqueda() {
+		return busqueda;
+	}
+
+	public void setBusqueda(Busqueda busqueda) {
+		this.busqueda = busqueda;
+	}
+
+	public String getTipoConsulta() {
+		return tipoConsulta;
+	}
+
+	public void setTipoConsulta(String tipoConsulta) {
+		this.tipoConsulta = tipoConsulta;
 	}
 
 }

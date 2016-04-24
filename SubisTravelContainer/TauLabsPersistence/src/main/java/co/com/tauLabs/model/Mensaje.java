@@ -51,6 +51,13 @@ public class Mensaje implements Serializable, IEntity<Long> {
 	@JoinColumn(name="id_usuario_destino",insertable = false, updatable = false)
 	private Usuario usuarioDestino;
 
+	@Column(name="id_mensaje_relacionado",nullable = false)
+	private Long idMensajeRelacionado;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_mensaje_relacionado",insertable = false, updatable = false)
+	private Mensaje mensajeRelacionado;
+	
 	public Mensaje() {
 	}
 
@@ -121,9 +128,24 @@ public class Mensaje implements Serializable, IEntity<Long> {
 	public Long getIdUsuarioDestino() {
 		return idUsuarioDestino;
 	}
-
+	
 	public void setIdUsuarioDestino(Long idUsuarioDestino) {
 		this.idUsuarioDestino = idUsuarioDestino;
 	}
 
+	public Long getIdMensajeRelacionado() {
+		return idMensajeRelacionado;
+	}
+
+	public void setIdMensajeRelacionado(Long idMensajeRelacionado) {
+		this.idMensajeRelacionado = idMensajeRelacionado;
+	}
+
+	public Mensaje getMensajeRelacionado() {
+		return mensajeRelacionado;
+	}
+
+	public void setMensajeRelacionado(Mensaje mensajeRelacionado) {
+		this.mensajeRelacionado = mensajeRelacionado;
+	}
 }

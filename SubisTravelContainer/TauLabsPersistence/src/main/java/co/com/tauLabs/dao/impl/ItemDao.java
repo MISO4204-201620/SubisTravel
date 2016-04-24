@@ -2,9 +2,12 @@ package co.com.tauLabs.dao.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,12 +15,17 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import co.com.tauLabs.constant.QueryName;
+import co.com.tauLabs.dao.IBusquedaDao;
+import co.com.tauLabs.dao.IConsultaDao;
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
+import co.com.tauLabs.enums.ConsultaTipoEnum;
 import co.com.tauLabs.enums.TransaccionEstadoEnum;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ValidationException;
+import co.com.tauLabs.model.Busqueda;
+import co.com.tauLabs.model.Consulta;
 import co.com.tauLabs.model.Item;
 import co.com.tauLabs.model.Pregunta;
 
@@ -33,6 +41,12 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
     @PersistenceContext(unitName = "TauLabsEntidadesEJB")
 	EntityManager em;
     
+    @Inject
+	private IBusquedaDao iBusquedaDao;
+    
+    @Inject
+	private IConsultaDao iConsultaDao;
+    
 	@Override
 	public PaginateDTO filtrados(FilterDTO filtros) throws PersistenceEJBException {
 		logger.debug("CP iniciando metodo filtrados()");
@@ -43,7 +57,7 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 			String ands = "";
 			String joins = "";
 			PaginateDTO paginate = new PaginateDTO();
-
+			String textoBusqueda = "";
 			if(filtros.getName()!=null && !filtros.getName().trim().equals("")){
 				ands = ands+"WHERE ";
 				ands = ands + "i.nombre like (:nombre) ";
@@ -123,6 +137,7 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 			if(filtros.getName()!=null && !filtros.getName().trim().equals("")){
 				namedQuery.setParameter("nombre","%"+filtros.getName()+"%");
 				namedQueryCount.setParameter("nombre","%"+filtros.getName()+"%");
+				textoBusqueda=filtros.getName();
 			}
 				
 			if(filtros.getProviders()!=null){
@@ -164,8 +179,20 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 			paginate.setLstElements(new ArrayList<Object>());
 			
 			if(items.size()>0){
+				//Se crea registro en busqueda!
+				Busqueda busqueda = new Busqueda();
+				if(textoBusqueda.trim().length()>0)
+				{  
+					busqueda.setFecha(new Date());
+					busqueda.setTexto(textoBusqueda);
+					busqueda = iBusquedaDao.guardar(busqueda);
+				}
 				for (Item item : items) {
 					paginate.getLstElements().add(item);
+					if(textoBusqueda.trim().length()>0 && busqueda.getId()!=null)
+					{
+						processAsyncRegistroConsulta(item,busqueda,ConsultaTipoEnum.BUSQUEDA.getValue());
+					}
 				}
 			}
 			
@@ -181,7 +208,11 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 		try{
 	    	
     		if(id==null)throw new Exception("El identificador es nulo");
-    		return (Item) em.find(Item.class,id);
+    		Item item= em.find(Item.class,id);
+    		if(item !=null){
+    			processAsyncRegistroConsulta(item,null,ConsultaTipoEnum.CONSULTA.getValue());
+    		}
+    		return item;
     	}catch(Exception e){
     		logger.error("CP Erro consultando Item por id, causa: "+e.getMessage());
     		throw new PersistenceException("CP Error ejecutando el metodo obtenerItemPorId,causa: "+e.getMessage());
@@ -204,4 +235,34 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
     		throw new PersistenceException("CP Error ejecutnao el metodo permiteCalificarItemPorUsuario,causa: "+e.getMessage());
     	}
 	}
+	
+	@Asynchronous
+	public void  processAsyncRegistroConsulta(Item item, Busqueda busqueda, String tipo) throws Exception {
+		try {
+			 new Thread(() -> this.registroConsulta(item,busqueda,tipo)).start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Boolean  registroConsulta(Item item, Busqueda busqueda, String tipo) {
+		try {
+			logger.info("Ingresando metodo asyncrono registro processRegistroConsulta");
+			Consulta consulta = new Consulta();
+			consulta.setFecha(new Date());
+			consulta.setIdItem(item.getId());
+			if(busqueda!=null && busqueda.getId()!=null){
+				consulta.setIdBusqueda(busqueda.getId());
+			}
+			consulta.setTipoConsulta(tipo);
+			consulta = iConsultaDao.guardar(consulta);
+		    return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 }
