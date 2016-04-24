@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name="ENTIDAD", schema="SubisDB")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonInclude(Include.NON_NULL)
 public class Entidad implements Serializable, IEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -61,7 +62,8 @@ public class Entidad implements Serializable, IEntity<Long> {
 	@JoinColumn(name="id_tipo",insertable = false, updatable = false)
 	private Tipo tipo;
 
-	@JsonInclude(value=Include.NON_EMPTY)
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="entidad")
 	private List<Usuario> usuarios;
 

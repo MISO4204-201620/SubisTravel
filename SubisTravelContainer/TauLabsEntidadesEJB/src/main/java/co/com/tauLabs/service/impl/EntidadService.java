@@ -12,6 +12,7 @@ import co.com.tauLabs.dao.IGenericDao;
 import co.com.tauLabs.dao.IUsuarioDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
+import co.com.tauLabs.dto.UsuarioDTO;
 import co.com.tauLabs.enums.EntidadEstadoEnum;
 import co.com.tauLabs.exception.PersistenceEJBException;
 import co.com.tauLabs.exception.ServiceEJBException;
@@ -40,11 +41,22 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 	}
 	
 	@Override
-	public Entidad agregarProveedor(Entidad entidad) throws ServiceEJBException {
+	public Entidad agregarProveedor(UsuarioDTO usuarioDTO) throws ServiceEJBException {
 		try{
-			Usuario usuario = entidad.getUsuarios().get(0);
-			entidad.setUsuarios(null);
+			Usuario usuario = new Usuario();
+			usuario.setEmail(usuarioDTO.getEmail());
+			usuario.setPassword(usuarioDTO.getPassword());
+			usuario.setEstado("ACTIVO");
+			
+			Entidad entidad = new Entidad();
+			entidad.setNombre(usuarioDTO.getNombre());
+			entidad.setDireccion(usuarioDTO.getDireccion());
+			entidad.setIdentificacion(usuarioDTO.getIdentificacion());
+			entidad.setIdTipo(4L);
+			entidad.setImagenPrincipal(usuarioDTO.getImagenPrincipal());
+			entidad.setEstado("ACTIVO");
 			entidadDao.guardar(entidad);
+			
 			usuario.setIdEntidad(entidad.getId());
 			usuarioDao.guardar(usuario);
 			return entidad;
@@ -98,7 +110,11 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 		logger.debug("CS iniciando metodo solicitudesBaja()");
 		try{
 			
-			return entidadDao.obtenerEntidadesPorEstado(EntidadEstadoEnum.SOLICITUDBAJA.getValue());
+			List<Entidad> entidades = entidadDao.obtenerEntidadesPorEstado(EntidadEstadoEnum.SOLICITUDBAJA.getValue());
+			for (Entidad entidad : entidades) {
+				entidad.setUsuarios(null);
+			}
+			return entidades;
 		}catch(PersistenceEJBException e){
 			throw new ServiceEJBException(e.getMessage());
 		}catch(Exception e){

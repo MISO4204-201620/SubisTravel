@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name="USUARIO", schema="SubisDB")
 @JsonInclude(Include.NON_NULL)
 public class Usuario implements Serializable, IEntity<Long> {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,7 +41,7 @@ public class Usuario implements Serializable, IEntity<Long> {
 	@Column(name="id_entidad",nullable = false)
 	private Long idEntidad;
 	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_entidad",insertable=false,updatable=false)
 	private Entidad entidad;
