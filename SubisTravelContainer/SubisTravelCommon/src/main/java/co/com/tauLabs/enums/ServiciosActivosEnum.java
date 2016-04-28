@@ -8,7 +8,7 @@ import org.omg.CORBA.portable.ApplicationException;
 public enum ServiciosActivosEnum {
 	COMMENTS_AND_RATINGS,
 	BASIC,
-	INTERMEDIO,
+	INTERMEDIATE,
 	PRO;
 
 	// guarda un breve nombre dado a un enumerador.
