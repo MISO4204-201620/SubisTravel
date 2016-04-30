@@ -25,7 +25,9 @@ public enum QueryName {
 	PREGUNTAS_BY_CATALOG("preguntas.byCatalogo"),
 	PREGUNTAS_BY_PREGUNTA_PADRE("preguntas.byPreguntaPadre"),
 	TRANSACCIONES_BY_ITEM_BY_USER_BY_STATE("transacciones.byItembyUserByState"),
-	PAQUETE_BY_ITEM_PAQUETE("paquete.byItemPaquete");
+	PAQUETE_BY_ITEM_PAQUETE("paquete.byItemPaquete"),
+	REPORTE_ITEMS_BY_USER_CONSULTADOS_BY_TIPO("reportes.detalleItemsPorIdUsuarioConsultadosPorTipoConsulta"),
+	REPORTE_TEXTO_BUSCADO_BY_ITEM("reportes.palabrasBuscadasPorItem");
 	
 	private String value;
 	

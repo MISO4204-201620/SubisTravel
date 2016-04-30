@@ -191,4 +191,25 @@
 			AND t.idUsuario = :idEntidad]]> 
         </query>
 	</named-query>
+	<named-query name="reportes.detalleItemsPorIdUsuarioConsultadosPorTipoConsulta">
+		<description>Return a list of y</description>
+		<query>
+			<![CDATA[SELECT i.id idItem, 
+						 i.nombre nombreItem, 
+				         count(i.id) cantidad				         
+				     FROM Consulta c
+				     JOIN  c.item i
+				    where c.tipoConsulta=:tipoConsulta and i.idEntidad in (SELECT u1.idEntidad FROM Usuario u1 where u1.id=:idUsuario)
+				 group by i.id, i.nombre]]> 
+        </query>
+	</named-query>
+	<named-query name="reportes.palabrasBuscadasPorItem">
+		<description>Return a list of </description>
+		<query>
+			<![CDATA[SELECT  b.texto palabrasBuscadas
+				    FROM Consulta c 
+		            JOIN c.busqueda  b
+		           WHERE c.idItem=:idItem]]> 
+        </query>
+	</named-query>
 </entity-mappings>

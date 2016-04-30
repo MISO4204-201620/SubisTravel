@@ -17,6 +17,7 @@ public class UsuarioDTO implements Serializable	{
 	//Campos de usuario
 	private String email;
 	private String password;
+	private String login;
 	
 	public String getIdentificacion() {
 		return identificacion;
@@ -65,6 +66,12 @@ public class UsuarioDTO implements Serializable	{
 	}
 	public void setIdTipo(Long idTipo) {
 		this.idTipo = idTipo;
+	}
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
 	}
 	
 }

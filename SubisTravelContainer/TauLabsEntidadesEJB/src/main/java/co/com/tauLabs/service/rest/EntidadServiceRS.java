@@ -100,7 +100,7 @@ public class EntidadServiceRS{
 	@Path("{id}")
 	public Response eliminarPersonaPorId(@PathParam("id") int id){
 		try{
-//			personaService.eliminar(new Entidad((long) id));
+			//personaService.eliminar(new Entidad((long) id));
 			return Response.ok().build();
 		}
 		catch(Exception e){

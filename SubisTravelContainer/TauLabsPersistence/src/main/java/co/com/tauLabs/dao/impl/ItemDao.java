@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import co.com.tauLabs.constant.QueryName;
@@ -20,6 +21,8 @@ import co.com.tauLabs.dao.IConsultaDao;
 import co.com.tauLabs.dao.IItemDao;
 import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
+import co.com.tauLabs.dto.ReportBusquedaDTO;
+import co.com.tauLabs.dto.ReportConsultaDTO;
 import co.com.tauLabs.enums.ConsultaTipoEnum;
 import co.com.tauLabs.enums.TransaccionEstadoEnum;
 import co.com.tauLabs.exception.PersistenceEJBException;
@@ -263,6 +266,69 @@ public class ItemDao extends GenericDao<Item, Long>  implements IItemDao, Serial
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public List<ReportBusquedaDTO> reporteBusquedaItems(Long idUsuario) throws PersistenceEJBException {
+		// TODO Auto-generated method stub
+		logger.debug("CP iniciando metodo reporteBusquedaItems()");
+		try{
+    		if(idUsuario==null)throw new Exception("El identificador es nulo");
+    		TypedQuery<Object> namedQuery = this.em.createNamedQuery(QueryName.REPORTE_ITEMS_BY_USER_CONSULTADOS_BY_TIPO.getValue(), Object.class);
+    		namedQuery.setParameter("idUsuario",idUsuario);
+    		namedQuery.setParameter("tipoConsulta",ConsultaTipoEnum.BUSQUEDA.getValue());
+    		List<Object> resultList = namedQuery.getResultList();
+    		List<ReportBusquedaDTO> lstReporte = new ArrayList<ReportBusquedaDTO>();
+    		for (Object result : resultList) {
+    		    Object[] r = (Object[]) result;
+    		    ReportBusquedaDTO reporte = new ReportBusquedaDTO();
+    		    reporte.setNombreItem(r[1].toString());
+    		    reporte.setIdItem((Long)r[0]);
+    		    reporte.setCantidad((Long)r[2]);
+    		    //Recuperando las palabras buscadas!
+    		    TypedQuery<Object> namedQuery1 = this.em.createNamedQuery(QueryName.REPORTE_TEXTO_BUSCADO_BY_ITEM.getValue(), Object.class);
+    		    namedQuery1.setParameter("idItem",reporte.getIdItem());
+        		List<Object> rslst = namedQuery1.getResultList();
+        		String textoBuscado="";
+        		for (Object text : rslst) {
+        		    textoBuscado=textoBuscado+";"+text.toString();
+        		}
+        		reporte.setPalabrasBuscadas(textoBuscado);
+        		//*********************
+        		
+    		    lstReporte.add(reporte);
+    		}
+    		return lstReporte;
+    	}catch(Exception e){
+    		logger.error("CP Error consultando reporteBusquedaItems, causa: "+e.getMessage());
+    		throw new PersistenceException("CP Error ejecutnao el metodo permiteCalificarItemPorUsuario,causa: "+e.getMessage());
+    	}
+	}
+
+	@Override
+	public List<ReportConsultaDTO> reporteConsultaItems(Long idUsuario) throws PersistenceEJBException {
+		logger.debug("CP iniciando metodo permiteCalificarItemPorUsuario()");
+		try{
+    		if(idUsuario==null)throw new Exception("El identificador es nulo");
+    		TypedQuery<Object> namedQuery = this.em.createNamedQuery(QueryName.REPORTE_ITEMS_BY_USER_CONSULTADOS_BY_TIPO.getValue(), Object.class);
+    		namedQuery.setParameter("idUsuario",idUsuario);
+    		namedQuery.setParameter("tipoConsulta",ConsultaTipoEnum.CONSULTA.getValue());
+    		List<Object> resultList = namedQuery.getResultList();
+    		List<ReportConsultaDTO> lstReporte = new ArrayList<ReportConsultaDTO>();
+    		for (Object result : resultList) {
+    		    Object[] r = (Object[]) result;
+    		    ReportConsultaDTO reporte = new ReportConsultaDTO();
+    		    reporte.setNombreItem(r[1].toString());
+    		    reporte.setIdItem((Long)r[0]);
+    		    reporte.setCantidad((Long)r[2]);
+    		    lstReporte.add(reporte);
+    		}
+    		return lstReporte;
+    		
+    	}catch(Exception e){
+    		logger.error("CP Error consultando Transacciones por usuario por estado, causa: "+e.getMessage());
+    		throw new PersistenceException("CP Error ejecutnao el metodo permiteCalificarItemPorUsuario,causa: "+e.getMessage());
+    	}
 	}
 	
 }

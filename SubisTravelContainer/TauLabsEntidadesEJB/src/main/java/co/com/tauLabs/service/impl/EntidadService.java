@@ -45,6 +45,7 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 		try{
 			Usuario usuario = new Usuario();
 			usuario.setEmail(usuarioDTO.getEmail());
+			usuario.setLogin(usuarioDTO.getLogin());
 			usuario.setPassword(usuarioDTO.getPassword());
 			usuario.setEstado("ACTIVO");
 			
