@@ -27,4 +27,6 @@ public interface IEntidadService extends IGenericService<Entidad, Long> {
 	Entidad solicitarBaja(Long id) throws ServiceEJBException;
 	
 	Entidad darBaja(Long id) throws ServiceEJBException;
+	
+	List<UsuarioDTO> obtenerUsuariosPorTipo(String tipo) throws ServiceEJBException;
 }

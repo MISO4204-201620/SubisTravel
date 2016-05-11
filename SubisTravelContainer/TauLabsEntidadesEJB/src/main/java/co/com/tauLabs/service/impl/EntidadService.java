@@ -158,4 +158,17 @@ public class EntidadService extends GenericService<Entidad, Long> implements IEn
 		}
 		
 	}
+
+	@Override
+	public List<UsuarioDTO> obtenerUsuariosPorTipo(String tipo) throws ServiceEJBException {
+		logger.debug("CS iniciando metodo usuariosPorTipo()");
+		try{
+			if(tipo==null) throw new Exception("Los filtros ingresados son nulos");
+			return usuarioDao.obtenerUsuariosPorTipo(tipo);
+		}catch(PersistenceEJBException e){
+			throw new ServiceEJBException(e.getMessage());
+		}catch(Exception e){
+			throw new ServiceEJBException("CS Ha ocurrido un error consultando usuario por tipo, causa: "+e.getMessage());
+		}
+	}
 }

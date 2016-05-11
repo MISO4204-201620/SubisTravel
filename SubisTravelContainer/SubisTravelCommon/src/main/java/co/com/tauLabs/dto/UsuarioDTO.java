@@ -15,6 +15,7 @@ public class UsuarioDTO implements Serializable	{
 	private Long idTipo;
 	
 	//Campos de usuario
+	private Long idUsuario;
 	private String email;
 	private String password;
 	private String login;
@@ -72,6 +73,12 @@ public class UsuarioDTO implements Serializable	{
 	}
 	public void setLogin(String login) {
 		this.login = login;
+	}
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 }

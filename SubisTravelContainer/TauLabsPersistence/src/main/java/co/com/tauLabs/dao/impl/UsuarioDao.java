@@ -1,10 +1,12 @@
 package co.com.tauLabs.dao.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import co.com.tauLabs.constant.QueryName;
@@ -12,6 +14,7 @@ import co.com.tauLabs.dao.IUsuarioDao;
 import co.com.tauLabs.dto.LoginDTO;
 import co.com.tauLabs.dto.SessionClientDTO;
 import co.com.tauLabs.dto.SocialLoginDTO;
+import co.com.tauLabs.dto.UsuarioDTO;
 import co.com.tauLabs.exception.ServiceEJBException;
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.model.RedSocialUsuario;
@@ -136,6 +139,42 @@ public class UsuarioDao extends GenericDao<Usuario, Long>  implements IUsuarioDa
 		}catch(Exception e){
 			throw new ServiceEJBException("CP Error consultando sessión con social id, causa: "+e.getMessage());
 		}
+	}
+
+	@Override
+	public List<UsuarioDTO> obtenerUsuariosPorTipo(String tipo) throws PersistenceException {
+		// TODO Auto-generated method stub
+				logger.debug("CP iniciando metodo obtenerUsuariosPorTipo()");
+				try{
+		    		if(tipo==null)throw new Exception("El tipo es nulo");
+		    		TypedQuery<Object> namedQuery = this.em.createNamedQuery(QueryName.USUARIO_BY_TIPO.getValue(), Object.class);
+		    		namedQuery.setParameter("tipo",tipo);
+		    		List<Object> resultList = namedQuery.getResultList();
+		    		List<UsuarioDTO> lstUsuariosDTO = new ArrayList<UsuarioDTO>();
+		    		if(!resultList.isEmpty()){
+		    			for (Object result : resultList) {
+			    		    Object[] r = (Object[]) result;
+			    		    UsuarioDTO usuario = new UsuarioDTO();
+			    		    //usuario.setDireccion(r[1].toString());
+			    		    usuario.setIdUsuario((Long)r[0]);
+			    		    if(r[2]!=null){
+			    		    	usuario.setEmail(r[2].toString());
+			    		    }
+			    		    //usuario.setEstado(r[1].toString());
+			    		    //usuario.setIdentificacion(r[1].toString());
+			    		    usuario.setNombre(r[3].toString());
+			    		    if(r[1]!=null){
+			    		    	usuario.setLogin(r[1].toString());
+			    		    }
+			        		lstUsuariosDTO.add(usuario);
+			    		}
+		    		}
+		    		
+		    		return lstUsuariosDTO;
+		    	}catch(Exception e){
+		    		logger.error("CP Error consultando obtenerUsuariosPorTipo, causa: "+e.getMessage());
+		    		throw new PersistenceException("CP Error ejecutando el metodo obtenerUsuariosPorTipo,causa: "+e.getMessage());
+		    	}
 	}
 	
 	

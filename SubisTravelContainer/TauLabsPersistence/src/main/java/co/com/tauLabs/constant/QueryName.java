@@ -20,6 +20,7 @@ public enum QueryName {
 	CATALOGOS_ALL("catalogos.all"),
 	USUARIO_BY_EMAIL("usuario.byEmail"),
 	USUARIO_BY_SOCIAL_ID("usuario.bySocialId"),
+	USUARIO_BY_TIPO("usuario.byTipo"),
 	USUARIO_CLIENTS_BY_ENTITY("usuario.clientsByEntity"),
 	PREGUNTAS_BY_ITEM("preguntas.byItem"),
 	PREGUNTAS_BY_CATALOG("preguntas.byCatalogo"),
@@ -27,7 +28,9 @@ public enum QueryName {
 	TRANSACCIONES_BY_ITEM_BY_USER_BY_STATE("transacciones.byItembyUserByState"),
 	PAQUETE_BY_ITEM_PAQUETE("paquete.byItemPaquete"),
 	REPORTE_ITEMS_BY_USER_CONSULTADOS_BY_TIPO("reportes.detalleItemsPorIdUsuarioConsultadosPorTipoConsulta"),
-	REPORTE_TEXTO_BUSCADO_BY_ITEM("reportes.palabrasBuscadasPorItem");
+	REPORTE_TEXTO_BUSCADO_BY_ITEM("reportes.palabrasBuscadasPorItem"),
+	MENSAJE_BY_USER_FROM("mensaje.byUserFrom"),
+	MENSAJE_BY_USER_TO("mensaje.byUserTo");
 	
 	private String value;
 	

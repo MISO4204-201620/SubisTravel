@@ -191,4 +191,16 @@ public class EntidadServiceRS{
 			return Response.status(404).build();
 		}
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("usuarios/tipos/{tipo}")
+	public List<UsuarioDTO> obtenerUsuariosPorTipo(@PathParam("tipo") String tipo){
+		logger.info("obtenerEntidadesPorTipo Services REST");
+		try {
+			return entidadService.obtenerUsuariosPorTipo(tipo);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

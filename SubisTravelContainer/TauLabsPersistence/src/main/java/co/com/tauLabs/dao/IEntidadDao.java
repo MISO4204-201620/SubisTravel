@@ -22,4 +22,5 @@ public interface IEntidadDao extends IGenericDao<Entidad, Long> {
 
 	List<Entidad> obtenerEntidadesPorEstado(String estado) throws PersistenceException;
 
+	
 }

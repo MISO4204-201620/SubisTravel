@@ -177,8 +177,8 @@
 		<description>Return a list of package by a determined item package</description>
 		<query>
 			<![CDATA[SELECT DISTINCT p FROM Paquete p
-				JOIN FETCH p.itemPaquete ip
-				JOIN FETCH p.itemIncluido ii  
+				JOIN  p.itemPaquete ip
+				JOIN  p.itemIncluido ii  
 				WHERE ip.id = :idItemPaquete]]> 
         </query>
 	</named-query>
@@ -210,6 +210,58 @@
 				    FROM Consulta c 
 		            JOIN c.busqueda  b
 		           WHERE c.idItem=:idItem]]> 
+        </query>
+	</named-query>
+	<named-query name="usuario.byTipo">
+		<description>Return a list of Users</description>
+		<query>
+			<![CDATA[SELECT  u.id, u.login, u.email, e.nombre
+				    FROM Usuario u 
+		            JOIN u.entidad  e
+		            JOIN e.tipo t
+		           WHERE t.nombre=:tipo]]> 
+        </query>
+	</named-query>
+	<named-query name="mensaje.byUserFrom">
+		<description>Return a list of Messages</description>
+		<query>
+			<![CDATA[SELECT  m.id,
+							 m.asunto, 
+							 m.mensaje, 
+							 m.fecha,  
+							 ud.id idUsuarioDestino, 
+							 uo.id idUsuarioOrigen, 
+							 e2.nombre nombreUsuarioDestino, 
+							 e1.nombre nombreUsuarioOrigen,
+							 m.idMensajeRelacionado 
+				    FROM Mensaje m 
+		            JOIN m.usuarioOrigen  uo
+		            JOIN uo.entidad e1
+		            JOIN m.usuarioDestino ud
+		            JOIN ud.entidad e2
+		           WHERE uo.id=:idUsuario
+		           ]]> 
+        </query>
+	</named-query>
+	<named-query name="mensaje.byUserTo">
+		<description>Return a list of Messages</description>
+		<query>
+			<![CDATA[SELECT  m.id,
+							 m.asunto, 
+							 m.mensaje, 
+							 m.fecha,  
+							 ud.id idUsuarioDestino, 
+							 uo.id idUsuarioOrigen, 
+							 e2.nombre nombreUsuarioDestino, 
+							 e1.nombre nombreUsuarioOrigen,
+							 m.idMensajeRelacionado 
+				    FROM Mensaje m 
+		            JOIN m.usuarioOrigen  uo
+		            JOIN uo.entidad e1
+		            JOIN m.usuarioDestino ud
+		            JOIN ud.entidad e2
+		           WHERE ud.id=:idUsuario
+		           ]]> 
         </query>
 	</named-query>
 </entity-mappings>
