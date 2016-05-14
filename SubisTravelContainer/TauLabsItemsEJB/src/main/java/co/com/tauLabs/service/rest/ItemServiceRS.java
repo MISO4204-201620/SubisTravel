@@ -61,12 +61,10 @@ public class ItemServiceRS {
 			Item item = itemService.obtenerItemPorId((long) id);
 
 			JAXBContext jc = JAXBContext.newInstance(Item.class);
-
 			Marshaller marshaller = jc.createMarshaller();
 			marshaller.setProperty("eclipselink.media-type", "application/json");
 			java.io.StringWriter sw = new StringWriter();
 			marshaller.marshal(item, sw);
-			sw.toString();
 			return sw.toString();
 		} catch (Exception e) {
 			return null;

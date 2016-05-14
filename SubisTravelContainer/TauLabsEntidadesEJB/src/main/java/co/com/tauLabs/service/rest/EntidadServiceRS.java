@@ -1,9 +1,11 @@
 package co.com.tauLabs.service.rest;
 
+import java.io.StringWriter;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,6 +17,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import org.jboss.logging.Logger;
 
@@ -22,34 +26,46 @@ import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.dto.UsuarioDTO;
 import co.com.tauLabs.model.Entidad;
+import co.com.tauLabs.model.Item;
 import co.com.tauLabs.model.Usuario;
 import co.com.tauLabs.service.IEntidadService;
+import interceptors.QrInterceptor;
 
 @Path("/entidades")
 @RequestScoped
-public class EntidadServiceRS{
+public class EntidadServiceRS {
 
 	final static Logger logger = Logger.getLogger(EntidadServiceRS.class);
-	
-	@EJB private IEntidadService entidadService;
-	
-	public EntidadServiceRS() {}
-	
+
+	@EJB
+	private IEntidadService entidadService;
+
+	public EntidadServiceRS() {
+	}
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public Entidad encontrarPorId(@PathParam("id") int id){
+	@Interceptors({ QrInterceptor.class })
+	public String encontrarPorId(@PathParam("id") int id) {
 		logger.info("encontrarPorId");
 		try {
-			return entidadService.obtenerPorId((long) id);
+			Entidad entidad = entidadService.obtenerPorId((long) id);
+
+			JAXBContext jc = JAXBContext.newInstance(Entidad.class);
+			Marshaller marshaller = jc.createMarshaller();
+			marshaller.setProperty("eclipselink.media-type", "application/json");
+			java.io.StringWriter sw = new StringWriter();
+			marshaller.marshal(entidad, sw);
+			return sw.toString();
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Entidad> listar(){
+	public List<Entidad> listar() {
 		logger.info("listar actualizado");
 		try {
 			return entidadService.listar();
@@ -61,57 +77,56 @@ public class EntidadServiceRS{
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response agregarEntidad(Entidad entidad){
-		try{
+	public Response agregarEntidad(Entidad entidad) {
+		try {
 			entidadService.guardar(entidad);
 			return Response.ok().entity(entidad).build();
-		}catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("agregarProveedor")
-	public Response agregarProveedor(UsuarioDTO usuarioDTO){
-		try{
+	public Response agregarProveedor(UsuarioDTO usuarioDTO) {
+		try {
 			Entidad entidad = entidadService.agregarProveedor(usuarioDTO);
 			return Response.ok().entity(entidad).build();
-		}catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("actualizar")
-	public Response modificarPersona(Entidad personaModificada){
-		try{
+	public Response modificarPersona(Entidad personaModificada) {
+		try {
 			entidadService.modificar(personaModificada);
 			return Response.ok().entity(personaModificada).build();
-		}catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@DELETE
 	@Path("{id}")
-	public Response eliminarPersonaPorId(@PathParam("id") int id){
-		try{
-			//personaService.eliminar(new Entidad((long) id));
+	public Response eliminarPersonaPorId(@PathParam("id") int id) {
+		try {
+			// personaService.eliminar(new Entidad((long) id));
 			return Response.ok().build();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(404).build();
 		}
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("clientesPorEntidad/{idEntidad}")
-	public List<Usuario> obtenerClientesPorEntidad(@PathParam("idEntidad") int idEntidad){
+	public List<Usuario> obtenerClientesPorEntidad(@PathParam("idEntidad") int idEntidad) {
 		logger.info("obtenerEntidadesPorTipo Services REST");
 		try {
 			return entidadService.clientesPorEntidad(Integer.valueOf(idEntidad).longValue());
@@ -123,7 +138,7 @@ public class EntidadServiceRS{
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("porTipo/{idTipo}")
-	public List<Entidad> obtenerEntidadesPorTipo(@PathParam("idTipo") int idTipo){
+	public List<Entidad> obtenerEntidadesPorTipo(@PathParam("idTipo") int idTipo) {
 		logger.info("obtenerEntidadesPorTipo Services REST");
 		try {
 			return entidadService.obtenerEntidadesPorTipo((long) idTipo);
@@ -131,30 +146,30 @@ public class EntidadServiceRS{
 			return null;
 		}
 	}
-	
+
 	/**
 	 * @author ServioAndres
 	 * @return Lista de entiades con filtros para paginación
 	 */
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("listar")
-	public PaginateDTO filtrados(FilterDTO filters){
+	public PaginateDTO filtrados(FilterDTO filters) {
 		logger.debug("CR iniciando servicio itemsFiltrados()");
 		try {
 			return entidadService.filtrados(filters);
 		} catch (Exception e) {
-			logger.error("CR Error consultando items por filtro, causa: "+e.getMessage());
+			logger.error("CR Error consultando items por filtro, causa: " + e.getMessage());
 			return null;
 		}
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("solicitudesBaja")
-	public List<Entidad> solicitudesBaja(){
+	public List<Entidad> solicitudesBaja() {
 		logger.info("listar actualizado");
 		try {
 			return entidadService.solicitudesBaja();
@@ -162,40 +177,37 @@ public class EntidadServiceRS{
 			return null;
 		}
 	}
-	
-	
+
 	@GET
 	@Path("solicitarBaja/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response solicitarBaja(@PathParam("id") Long id){
-		try{
+	public Response solicitarBaja(@PathParam("id") Long id) {
+		try {
 			Entidad entidad = entidadService.solicitarBaja(id);
 			return Response.ok().entity(entidad).build();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(404).build();
 		}
 	}
-	
+
 	@GET
 	@Path("darBaja/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response darBaja(@PathParam("id") Long id){
-		try{
+	public Response darBaja(@PathParam("id") Long id) {
+		try {
 			Entidad entidad = entidadService.darBaja(id);
 			return Response.ok().entity(entidad).build();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(404).build();
 		}
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("usuarios/tipos/{tipo}")
-	public List<UsuarioDTO> obtenerUsuariosPorTipo(@PathParam("tipo") String tipo){
+	public List<UsuarioDTO> obtenerUsuariosPorTipo(@PathParam("tipo") String tipo) {
 		logger.info("obtenerEntidadesPorTipo Services REST");
 		try {
 			return entidadService.obtenerUsuariosPorTipo(tipo);

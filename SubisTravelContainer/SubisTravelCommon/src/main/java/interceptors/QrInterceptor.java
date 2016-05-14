@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
+import co.com.tauLabs.enums.ServiciosActivosEnum;
+
 public class QrInterceptor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,8 +18,11 @@ public class QrInterceptor implements Serializable {
 			invocationContext.getTarget();
 			Object o = invocationContext.proceed();
 			String json = o.toString();
-			
-			json = json.substring(0, json.length()-2) + ",\"qr\":\"asdadasdasd\"" + json.substring(json.length()-2, json.length());
+			if (ServiciosActivosEnum.QR.getValue()) {
+				json = json.substring(0, json.length() - 2) + ",\"qr\":\"asdadasdasd\""
+						+ json.substring(json.length() - 2, json.length());
+			}
+
 			return json; // que continue la secuencia
 		} catch (Exception e) {
 

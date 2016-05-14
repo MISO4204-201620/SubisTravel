@@ -9,7 +9,8 @@ public enum ServiciosActivosEnum {
 	COMMENTS_AND_RATINGS,
 	BASIC,
 	INTERMEDIATE,
-	PRO;
+	PRO,
+	QR;
 
 	// guarda un breve nombre dado a un enumerador.
 	private static java.util.Properties props;
