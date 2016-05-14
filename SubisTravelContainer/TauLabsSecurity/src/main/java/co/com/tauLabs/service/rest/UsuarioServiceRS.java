@@ -16,7 +16,6 @@ import org.jboss.logging.Logger;
 import co.com.tauLabs.dto.SessionClientDTO;
 import co.com.tauLabs.model.Entidad;
 import co.com.tauLabs.service.ILoginService;
-import co.com.tauLabs.service.IUsuarioService;
 
 @Path("/usuarios")
 @RequestScoped
@@ -24,8 +23,6 @@ public class UsuarioServiceRS {
 
 	final static Logger logger = Logger.getLogger(UsuarioServiceRS.class);
 
-	@EJB
-	private IUsuarioService usuarioService;
 	@EJB
 	private ILoginService loginService;
 
@@ -56,36 +53,5 @@ public class UsuarioServiceRS {
 			return null;
 		}
 	}
-
-	// @POST
-	// @Produces(MediaType.APPLICATION_JSON)
-	// @Consumes(MediaType.APPLICATION_JSON)
-	// @Path("loguear")
-	// public SessionClientDTO validarLogin(LoginDTO loginDTO){
-	// logger.debug("CR iniciando servicio validarLogin()");
-	// try {
-	// return usuarioService.validarLogin(loginDTO);
-	// } catch (Exception e) {
-	// logger.error("CR Error validando login de usuario, causa:
-	// "+e.getMessage());
-	// return null;
-	// }
-	// }
-
-	// @POST
-	// @Produces(MediaType.APPLICATION_JSON)
-	// @Consumes(MediaType.APPLICATION_JSON)
-	// @Path("accederConSocialId")
-	// public SessionClientDTO accederConSocialId(SocialLoginDTO
-	// socialLoginDTO){
-	// logger.debug("CR iniciando servicio accederConSocialId()");
-	// try {
-	// return usuarioService.accederConSocialId(socialLoginDTO);
-	// } catch (Exception e) {
-	// logger.error("CR Error validando login de usuario, causa:
-	// "+e.getMessage());
-	// return null;
-	// }
-	// }
 
 }
