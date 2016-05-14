@@ -12,14 +12,14 @@ import co.com.tauLabs.exception.ServiceEJBException;
 import co.com.tauLabs.model.Usuario;
 
 public interface IUsuarioDao extends IGenericDao<Usuario, Long> {
-	
+
 	List<Usuario> clientesPorEntidad(Long idEntidad) throws ServiceEJBException;
 
-	SessionClientDTO validarLogin(LoginDTO loginDTO) throws ServiceEJBException;
+	SessionClientDTO validarLogin(SessionClientDTO sessionClientDTO) throws ServiceEJBException;
 
 	SessionClientDTO accederConSocialId(String socialId) throws ServiceEJBException;
 
-	SessionClientDTO altaConSocialId(SocialLoginDTO socialLoginDTO) throws ServiceEJBException;
-	
+	SessionClientDTO altaConSocialId(SessionClientDTO sessionClientDTO) throws ServiceEJBException;
+
 	List<UsuarioDTO> obtenerUsuariosPorTipo(String tipo) throws PersistenceException;
 }

@@ -6,15 +6,11 @@ import java.util.Map;
 import org.omg.CORBA.portable.ApplicationException;
 
 public enum ServiciosActivosEnum {
-	COMMENTS_AND_RATINGS,
-	BASIC,
-	INTERMEDIATE,
-	PRO,
-	QR;
+	COMMENTS_AND_RATINGS, BASIC, INTERMEDIATE, PRO, QR, SOCIAL_AUTHENTICATION;
 
 	// guarda un breve nombre dado a un enumerador.
 	private static java.util.Properties props;
-	private static Map<String,Boolean> valores = null;
+	private static Map<String, Boolean> valores = null;
 
 	private static void inicializarValores() throws ApplicationException {
 		try {
@@ -31,7 +27,7 @@ public enum ServiciosActivosEnum {
 				}
 			} // if
 		} catch (Exception ex) {
-			System.out.println("Error cargando propiedades, causa: "+ex.getCause());
+			System.out.println("Error cargando propiedades, causa: " + ex.getCause());
 		}
 	}
 

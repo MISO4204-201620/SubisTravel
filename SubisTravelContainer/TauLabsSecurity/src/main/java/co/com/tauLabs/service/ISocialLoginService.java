@@ -6,7 +6,7 @@ import co.com.tauLabs.dto.SessionClientDTO;
 import co.com.tauLabs.exception.ServiceEJBException;
 
 @Local
-public interface IUsuarioService {
+public interface ISocialLoginService {
 
 	SessionClientDTO validarLogin(SessionClientDTO sessionClientDTO) throws ServiceEJBException;
 
