@@ -1,7 +1,10 @@
 package co.com.tauLabs.service.rest;
 
+import java.io.StringWriter;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,6 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import org.jboss.logging.Logger;
 
@@ -19,46 +24,59 @@ import co.com.tauLabs.dto.FilterDTO;
 import co.com.tauLabs.dto.PaginateDTO;
 import co.com.tauLabs.model.Item;
 import co.com.tauLabs.service.IItemService;
+import interceptors.QrInterceptor;
 
 @Path("/items")
 @RequestScoped
-public class ItemServiceRS{
+public class ItemServiceRS {
 
 	final static Logger logger = Logger.getLogger(ItemServiceRS.class);
-	
-	@EJB private IItemService itemService;
 
-	public ItemServiceRS() {}
+	@EJB
+	private IItemService itemService;
+
+	public ItemServiceRS() {
+	}
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public PaginateDTO filtrados(FilterDTO filters){
+	public PaginateDTO filtrados(FilterDTO filters) {
 		logger.debug("CR iniciando servicio itemsFiltrados()");
 		try {
 			return itemService.filtrados(filters);
 		} catch (Exception e) {
-			logger.error("CR Error consultando items por filtro, causa: "+e.getMessage());
+			logger.error("CR Error consultando items por filtro, causa: " + e.getMessage());
 			return null;
 		}
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	public Item obtenerItemPorId(@PathParam("id") int id){
+	@Interceptors({ QrInterceptor.class })
+	public String obtenerItemPorId(@PathParam("id") int id) {
 		logger.info("obtenerItemPorId Services REST");
 		try {
-			return itemService.obtenerItemPorId((long) id);
+			Item item = itemService.obtenerItemPorId((long) id);
+
+			JAXBContext jc = JAXBContext.newInstance(Item.class);
+
+			Marshaller marshaller = jc.createMarshaller();
+			marshaller.setProperty("eclipselink.media-type", "application/json");
+			java.io.StringWriter sw = new StringWriter();
+			marshaller.marshal(item, sw);
+			sw.toString();
+			return sw.toString();
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}/permiteCalificarItem/{idUsuario}")
-	public Boolean permiteCalificarItemPorUsuario(@PathParam("id") long id,@PathParam("idUsuario") long idUsuario){
+	public Boolean permiteCalificarItemPorUsuario(@PathParam("id") long id, @PathParam("idUsuario") long idUsuario) {
 		logger.info("obtenerItemPorId Services REST");
 		try {
 			return itemService.permiteCalificarItemPorUsuario(id, idUsuario);
@@ -66,24 +84,24 @@ public class ItemServiceRS{
 			return null;
 		}
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("crear")
-	public Response crearItem(Item item){
-		try{
+	public Response crearItem(Item item) {
+		try {
 			itemService.crearItem(item);
 			return Response.ok().entity(item).build();
-		}catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}/publicar")
-	public Item publicarItem(@PathParam("id") long id){
+	public Item publicarItem(@PathParam("id") long id) {
 		logger.info("obtenerItemPorId Services REST");
 		try {
 			return itemService.publicarItem(id);
@@ -91,19 +109,18 @@ public class ItemServiceRS{
 			return null;
 		}
 	}
-	
+
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("{id}/actualizar")
-	public Response actualizarItem(@PathParam("id") long id,Item item){
-		try{
+	public Response actualizarItem(@PathParam("id") long id, Item item) {
+		try {
 			itemService.actualizarItem(id, item);
 			return Response.ok().entity(item).build();
-		}catch(Exception e){
+		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
-	
+
 }

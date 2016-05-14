@@ -11,18 +11,17 @@
 	</properties>
   <modules>
   	<module>TauLabsUtils</module>
+    <module>SubisTravelCommon</module>
   	<module>TauLabsPersistence</module>
-    <module>SubisTravelWeb</module>
-    <module>SubisTravelCommonEAR</module>
     <module>TauLabsEntidadesEJB</module>
-    <module>SubisTravelEstandarEAR</module>
     <module>TauLabsTransaccionesEJB</module>
     <module>TauLabsItemsEJB</module>
     <module>TauLabsQualificationEJB</module>
     <module>TauLabsReportEJB</module>
     <module>TauLabsMessagesEJB</module>
     <module>TauLabsSecurity</module>
-    <module>SubisTravelCommon</module>
+    <module>SubisTravelWeb</module>
+    <module>SubisTravelCommonEAR</module>
   </modules>
   <build>
   	<pluginManagement>
