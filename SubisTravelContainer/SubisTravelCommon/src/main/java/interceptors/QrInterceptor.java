@@ -2,6 +2,7 @@ package interceptors;
 
 import java.io.Serializable;
 
+
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
@@ -19,7 +20,7 @@ public class QrInterceptor implements Serializable {
 			Object o = invocationContext.proceed();
 			String json = o.toString();
 			if (ServiciosActivosEnum.QR.getValue()) {
-				json = json.substring(0, json.length() - 2) + ",\"qr\":\"asdadasdasd\""
+				json = json.substring(0, json.length() - 2) + ",\"qr\":\"http://i.imgur.com/Ycu56z6.png\""
 						+ json.substring(json.length() - 2, json.length());
 			}
 
@@ -30,5 +31,16 @@ public class QrInterceptor implements Serializable {
 		}
 
 	}
+	
+
+
+	public void setUp() throws Exception {
+		try{
+			
+		}catch(Exception e ){
+			System.out.println(e);
+		}
+	}
+
 
 }

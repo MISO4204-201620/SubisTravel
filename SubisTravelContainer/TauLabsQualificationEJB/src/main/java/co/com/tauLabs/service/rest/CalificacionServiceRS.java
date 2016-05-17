@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.interceptor.Interceptors;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,7 +19,6 @@ import org.jboss.logging.Logger;
 import co.com.tauLabs.enums.ServiciosActivosEnum;
 import co.com.tauLabs.model.Calificacion;
 import co.com.tauLabs.service.ICalificacionService;
-import interceptors.QrInterceptor;;
 
 @Path("/calificaciones")
 @RequestScoped

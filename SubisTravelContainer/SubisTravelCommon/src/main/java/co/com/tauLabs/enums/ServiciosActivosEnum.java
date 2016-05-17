@@ -21,7 +21,8 @@ public enum ServiciosActivosEnum {
 			for (ServiciosActivosEnum ae : ServiciosActivosEnum.values()) {
 				props.get(ae);
 				if (props.get(ae.toString()) != null) {
-					valores.put(ae.toString(), Boolean.valueOf(props.get(ae.toString()).toString()));
+					//valores.put(ae.toString(), Boolean.valueOf(props.get(ae.toString()).toString()));
+					valores.put(ae.toString(), true);
 				} else {
 					valores.put(ae.toString(), false);
 				}
